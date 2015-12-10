@@ -1,0 +1,20 @@
+<strong>Objetivos</strong>:
+<ul><li>Entender como funciona a interrupção de recepção da UART0</li><li>Implementar máquina de estado na rotina de interrupção do SysTick para leitura dos botões de pressão</li></ul>
+<strong>Atividades:</strong>
+<ul><li>Teste: <a href="http://goo.gl/forms/DGmn9bM9gy" target="_blank">Turma S</a>; <a href="http://goo.gl/forms/CVPOzEEQH2" target="_blank">Turma T</a>; <a target="_blank" href="http://goo.gl/forms/lHcXiODt5H">Turma E</a>; <a target="_blank" href="http://goo.gl/forms/Y8RbKRstZP">Turma M</a>; <a href="http://goo.gl/forms/RKxuX27E7C" target="_blank">TurmaU</a>; <a href="http://goo.gl/forms/6jH6dxPoCW" target="_blank">Turma W</a></li><li><strong>I - UART0 por interrupção: @1125</strong></li><li>Verificação do número da interrupção IRQ associada à UART0 - manual KL25 Cap. 3.3.2
+<ul><li>Verificar Tabela 3-7</li></ul>
+</li><li>Leitura e interpretação da parte de interrupção da UART0 - manual KL25 Cap. 39 em especial 39.3.5
+<ul><li>Habilitar a interrupção para recepção de caracteres - registrador UART0_C2, bit RIE - Receiver Interrupt Enable</li><li>O tratamento de interrupção é feito pela rotina <b>void</b><strong> UART0_IRQHandler</strong>(<b>void</b>) que deve ser declarada como função no programa.</li></ul>
+</li><li>Estudo do NVIC para habilitar a interrupção da UART0 - manual arm_v6m Cap. B.3.4
+<ul><li>Habilitar interrupção usando NVIC_ISER</li></ul>
+</li><li>Funções de leitura do terminal serial via interrupção:
+<ul><li><strong>void UART0_IRQHandler(void)</strong>: colocar 2 variáveis de estado globais: RX_data e RX_full</li><li>modificar a subrotina <strong>init_UART0</strong> para habilitar interrupção de RX</li><li>modificar subrotina <strong>getchar_UART()</strong> para ler as variáveis de estado globais</li></ul>
+</li><li><strong>II - Leitura dos botões de pressão via interrupção do SysTick: @1124</strong></li><li>Funções de leitura dos botões de pressão via interrupção do SysTick:
+<ul><li>Denominar key1, key2, key3 para cada botão de pressão</li><li>Declarar 6 variáveis de estado na void SysTick_Handler(void):
+<ul><li>3 internas (static): key1, key2, key2 para guardar o estado anterior dos botões</li><li>3 globais: key1_Full, key2_Full, key3_Full para indicar que a chave foi apertada e está esperando para ser lida (consumida pela <strong>getkey()</strong>)</li><li>função int <strong>getkey()</strong> retornando: 0 se nenhuma chave foi apertada, 1 a 3 caso a chave 1, 2 ou 3 foi apertada</li></ul>
+</li></ul>
+</li></ul>
+<strong>Programa a ser entregue na próxima aula:</strong>
+<ul><li><tt>prog9</tt>: Programa de melhoria do cronômetro, que utilize as subrotinas: <strong><tt>getkey()</tt></strong> e <strong><tt>getchar_UART()</tt></strong>.Evite fazer programas muito maiores que 100 linhas, excepcionalmente até 200 linhas se for bem estruturado. Evitar no programa principal o uso de macros ou comandos específicos de hardware, utilize as funções desenvolvidas:@764.</li></ul>
+<strong>Referências:</strong>
+<ul><li>Manual da arquitetura ARM v6: <a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7dpd4xb40ek/arm_v6m_reference_manual.pdf" target="_blank">arm_v6m_reference_manual.pdf</a> (NVIC - Seção B3.4)</li><li>Manual da KL25Z: <a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i6micg8in2nc/KL25P80M48SF0RM.pdf" target="_blank">KL25P80M48SF0RM.pdf</a> (NVIC - Seção 3.3.2, UART0 Cap. 39 e 39.3.5)</li></ul>

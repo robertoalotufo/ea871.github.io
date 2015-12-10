@@ -1,0 +1,31 @@
+<strong>Objetivos:</strong>
+<ul><li>Programação assembly (continuação)</li><li>Geração de onda quadrada na PortE pino23 e observação com osciloscópio junto com clock</li><li>Acessos de memória feitos em cada instrução</li></ul>
+<strong>Atividades:</strong>
+<ul><li>Teste 3: <a href="http://goo.gl/forms/mUp38VF9ZD" target="_blank">Turma S</a>; <a href="http://goo.gl/forms/hLYfCqnR1m" target="_blank">Turma T</a>; <a href="http://goo.gl/forms/68uDJxlSO3" target="_blank">Turma E;</a> <a href="http://goo.gl/forms/qZkk5YmVmg" target="_blank">Turma M;</a> <a href="http://goo.gl/forms/NIDKezfkx6" target="_blank">Turma W</a>;<a href="http://goo.gl/forms/HtMH1Qmu2T" target="_blank">Tuma U</a></li><li>Demonstração do programa 3: LED e chaves em ASM</li><li>Colocar o programa @466 para executar e observar a frequência da onda quadrada sendo gerada com osciloscópio</li><li>Interpretar a execução <strong>do laço que gera a onda quadrada:</strong>
+<ul><li>Gerar o disassembly do programa e interpretar as instruções</li><li>Executar as instruções que geram a onda quadrada no passo-a-passo</li><li>Estimar o número de leituras e escritas (32 bits) na memória feitas pelo laço que gera a onda quadrada</li><li>Montar uma tabela da execução das instruções conforme modelo feito em @484:</li><li>Primeiro faça com o laço contendo 4 instruções:</li><li>
+<pre>	@ Laço de geração da onda quadrada PTE23
+toggle_pte23:
+	@ GPIOE_PTOR = BIT23
+	ldr r3, GPIOE_PTOR
+	ldr r2, BIT23
+	str r2, [r3]
+	b toggle_pte23</pre>
+</li><li>Depois faça com o laço otimizado, contendo apenas 2 instruções:</li><li>
+<pre>	@ Laço de geração da onda quadrada PTE23
+	@ GPIOE_PTOR = BIT23
+	ldr r3, GPIOE_PTOR
+	ldr r2, BIT23
+toggle_pte23:
+	str r2, [r3]
+	b toggle_pte23</pre>
+</li></ul>
+</li></ul>
+<strong>Considerações:</strong>
+
+Lembrar que o principal gargalo de tempo de execução de uma instrução está associado ao número de acessos à memória. Uma instrução que não faz nenhum acesso adicional, como por exemplo, copiar o conteúdo de um registrador no outro vai requerer apenas o acesso para ler a instrução (fetch de instrução).
+Considerando que o processador acessa a memória com 32 bits, se uma instrução estiver numa posição múltipla de 4, o acesso à memória irá ler duas instruções, a atual e a próxima. Isto permite economizar um acesso à memória. Uma leitura ou escrita na memória exige no mínimo 2 ciclos e pode demorar 3 ou 4 se houver <em>wait states</em>.
+A temporização dos acessos à memória dos processadores ARM são bastante sofisticadas e complexas e não é assunto deste curso. Entretanto, o objetivo principal desta experiência é estimar o número de acessos à memória de cada instrução Thumb sendo executada.
+
+<strong>Programa para próxima aula: (folder "prog4")</strong>
+
+<ul><li>Reescrever o programa em C da primeira aula de piscar o LED, porém agora de forma que pisque na frequência de 1Hz juntamente com o sinal PTE23. Troque a função delay pela função: <tt>void delay10us(int t); </tt>que demore t dezenas de microssegundos. Calibrar o valor da constante usada nesta função usando o osciloscópio.</li><li>Utilize o template @623 onde a função <tt>delay10us</tt> está escrita com o decremento de<tt> t</tt> em ASM. Com isso será possível calibrar melhor o programa para que a subrotina gaste exatos <tt>10 us * t</tt>.</li><li>Coloque uma foto do visor do osciloscópio mostrando a frequência do sinal PTE23</li></ul>

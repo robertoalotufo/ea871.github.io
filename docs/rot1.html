@@ -1,0 +1,76 @@
+<strong>Objetivos desta aula:</strong>
+<ul>
+<li>Apresentar a dinâmica do curso, conteúdo, atividades e formas de avaliação;</li>
+<li>Cadastro e utilização do Piazza como ambiente do curso, materiais, discussão, entregas;</li>
+<li>Responder Formulário online de Expectativa do curso: <a href="https://docs.google.com/forms/d/10GJH-32JAA4qH8CntDRmIC8FuzT5Sfx1z5pPrZkfNlI/viewform?usp=send_form" target="_blank">Formulário online</a>;</li>
+<li>Utilizar o CodeWarrior para compilar e executar um primeiro programa para piscar LED RGB da placa Freedom;</li>
+<li>Entender as várias partes para se desenvolver programa na placa Freedom: PC com CodeWarrior, Placa Freedom com OpenSDA e MCU KL25Z;</li>
+<li>Conhecer os principais manuais PDF;</li>
+<li>Primeiros passos em entender programa de piscar o LED, programa de acesso ao hardware da placa Freedom;</li>
+<li>Fazer modificação do programa para piscar os LEDs vermelho e verde de forma criativa à sua escolha.</li>
+</ul>
+
+<strong>Atividades:</strong>
+
+<ul>
+<li>Conhecendo o Piazza (cadastramento de cada um)</li>
+<li>Organização do curso, forma de avaliação e atividades programadas (@8)</li>
+</ul>
+<ul>
+<li>Conhecendo o hardware: Placa Shield, Placa Freedom, MCU KL25, ARM Cortex M0+ (Veja @18)</li>
+<li>Conhecendo o software: CodeWarrior(@19)</li>
+</ul>
+
+<strong>Exemplo de programa:</strong>
+
+Iremos compilar e executar um pequeno programa em C para fazer piscar o LED vermelho do LED RGB que vem na placa Freedom. Este LED fica abaixo da placa verde (placa Shield).
+
+Durante a aula crie um projeto com o primeiro programa que faz LED vermelho piscar:
+<ul>
+<li>Siga as instruções para criar um projeto: @19</li>
+</ul>
+<ul>
+<li>Utilize como main.c o programa para piscar LED vermelho: @13</li>
+</ul>
+
+<strong>Programa a ser feito e entregue no folder prog1 antes da próxima aula: </strong>
+<ul>
+<li>Fazer modificação do programa para piscar agora os LEDs vermelho e verde de forma criativa à sua escolha. O LED verde está com seu catodo ligado ao bit 19 da PortB. Para acender e apagar o LED verde, deve-se inicializar o bit 19 de PortB da mesma forma feita com o bit 18 (LED vermelho) e utilizar os comandos de set e clear do bit 19 da PortB para apagar e acender o LED verde, respectivamente.</li>
+<li>
+Para termos um melhor entendimento da ordem de apagar e acender os LED no programa entregue, coloque após a descrição de seu funcionamento a sequência de acendimento, apagamento e tempo gerado pelo seu programa, usando a seguinte convenção:
+R - acende LED vermelho (red)
+G - acende LED verde (green)
+r - apaga LED vermelho
+g - apaga LED verde
+- - espera tempo.
+
+Coloque também a combinação das cores em outro string com a seguinte convenção:
+R - vermelho
+G - verde
+Y - amarelo
+B - preto
+Assim, um exemplo seria:
+supondo que os dois LEDs estivessem apagados no início:
+
+<tt>String acende/apaga/tempo: R-G-r-g-R-G-</tt>
+<tt>String cores/tempo:        R-Y-G-B-R-Y-</tt>
+<tt> </tt>
+indicando que os LEDs irão piscar na seguinte ordem: vermelho, amarelo (os dois LEDs estão acesos), verde, preto, e assim por diante. </li>
+<li></li>
+<li>Entregue o programa feito no Piazza, conforme a orientação feita em @6</li>
+</ul>
+
+<strong>Manuais e Referências</strong>
+<ul>
+<li><a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i6jctfqx743j/FRDMKL25Z_Users_Manual_Rev_2.pdf" target="_blank">FRDMKL25Z_Users_Manual_Rev_2.pdf</a> - Manual da placa Freedom</li>
+<li><a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i6mih9ds2oxj/FRDMKL25Z_SCH.pdf" target="_blank">FRDMKL25Z_SCH.pdf</a> - Esquemático da placa Freedom</li>
+<li><a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i6micg8in2nc/KL25P80M48SF0RM.pdf" target="_blank">KL25P80M48SF0RM.pdf</a> - MCU - KL25Z - Manual do Microcontrolador
+
+</li>
+<li><a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i6mun9ymk0gp/crefcard.pdf" target="_blank">crefcard.pdf</a> - Referência rápida de programação em C</li>
+</ul>
+
+<ul>
+<li><a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzled48db8i5tt/i6mzxhgvw7yh/Tutorial_CW__Aula_1.pdf" target="_blank">Tutorial_CW__Aula_1.pdf</a> - Guia resumido para a compilação e execução do primeiro programa no CodeWarrior (CW)</li>
+<li><a href="http://www.dca.fee.unicamp.br/courses/EA871/2s2014/sites/default/files/pdf/Apostila%20CW10.pdf" target="_blank">Apostila CodeWarrior (Prof. Quevedo)</a> - Apostila completa para utilização da IDE</li>
+</ul>
