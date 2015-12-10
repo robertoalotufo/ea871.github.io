@@ -1,0 +1,27 @@
+<strong>Objetivos</strong>:
+<ul><li>Conhecer como funciona um controlador de display LCD</li><li>Analisar esquemático e relacioná-lo com o software necessário para a sua aplicação</li><li>Analisar o manual do LCD e desenvolver programa para sua interface</li><li>Projetar o programa de acordo com a temporização dos sinais especificada pelo fabricante do LCD</li><li>Consolidação dos conhecimento sobre a GPIO</li></ul>
+
+<strong>Atividades</strong>:
+<ul><li>Teste: <a href="http://goo.gl/forms/xPp3jq8tuz" target="_blank">Turma S</a>; <a href="http://goo.gl/forms/oRoGHtke5a" target="_blank">Turma T</a>; <a href="http://goo.gl/forms/fWO82T9TSK" target="_blank">Turma E;</a> <a href="http://goo.gl/forms/2eDEeiBHhl" target="_blank">Turma M;</a> <a href="http://goo.gl/forms/YRyHcRQOP4" target="_blank">Turma W</a>; <a href="http://goo.gl/forms/EAh4TGb5Zi" target="_blank">Turma U</a>;</li><li>Demonstração do prog4</li><li>Entender como a interface do display LCD funciona, ver @630</li><li>Fazer o programa que inicializa o GPIO, inicializa o display LCD e escreve alguma mensagem
+<ul><li>Habilitar a PortC: SIM_SCGC5</li><li>Configurar MUX: PORTC_PCR0 a PORTC_PCR9</li><li>Configurar PORTC como saída: GPIOC_PDDR</li></ul>
+</li></ul>
+
+<strong>Programas a serem entregues na próxima aula:</strong>
+
+<ul><li>Folder prog5: Programa que inicializa GPIO, LCD e escreve alguma mensagem
+<ul><li>Atenção: o objetivo desta experiência é seguir as recomendações do fabricante do LCD e implementar as funções conforme especificado em relação às temporizações recomendadas. Não se deve colocar nem tempo a mais ou a menos.</li></ul>
+</li><li>Utilizar os seguintes nomes de funções:
+<ul><li><tt>void init_GPIO_LCD();</tt> // inicializa as portas GPIO para operar com o LCD</li><li><tt>void init_LCD();</tt> // inicializa o LCD, 2 linhas, limpeza do display, etc.
+<ul><li>ATENÇÃO: utilize a função <tt>sendcmd_LCD</tt> definida a seguir para implementar a <tt>init_LCD</tt></li></ul>
+</li><li><tt>void sendcmd_LCD( char c, int us);</tt> // envia código de comando para o LCD e espera us microssegundos
+<ul><li>// Esta função deve colocar no início o sinal RS = 0, indicando que se estará enviando comandos para o LCD</li></ul>
+</li><li><tt>void putchar_LCD( char c); // imprime o código ASCII guardado em c no LCD</tt>
+<ul><li>// Esta função deve colocar no início o sinal RS = 1, indicando que se estará enviando dados ao LCD</li></ul>
+</li></ul>
+</li><li>Este programa deve utilizar as macros definidas pelo "<tt>derivative.h</tt>" que por sua vez inclue o "<tt>MKL25Z4.h</tt>" que contém as macros necessárias
+<ul><li>Atenção estes dois arquivos não devem ser editados, pois eles fazem parte do sistema do CodeWarrior</li></ul>
+</li></ul>
+
+<strong>Referências</strong>:
+
+<ul><li>Instruções para o programa de interface com LCD: @630</li><li>Esquemático placa Shield: <a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7hljo9181j8/Descricao_do_hardware.pdf" target="_blank">Descricao_do_hardware.pdf</a></li><li>Manual do LCD: <a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qvg9v2w42j/AC162A.pdf" target="_blank">AC162A.pdf</a></li><li>Manual do KL25: <a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i6micg8in2nc/KL25P80M48SF0RM.pdf" target="_blank">KL25P80M48SF0RM.pdf</a></li><li>Tabela ASCII: <a href="http://pt.wikipedia.org/wiki/ASCII" target="_blank">http://pt.wikipedia.org/wiki/ASCII</a></li></ul>

@@ -1,0 +1,54 @@
+Segue o post que fiz no semestre passado:
+
+
+
+O laboratório será utilizado amanhã (quinta, dia 25/06) para uma aula da disciplina EA869, das 10 a 12h.
+
+O experimento que faremos será semelhante a o que foi feito nas primeiras aulas desse curso, com a diferença que usaremos o recurso de escrever comandos em assembly dentro do código em C (diretiva "__asm").
+Utilizamos um loop de contagem para controlar o toggle do LED. Em C, a contagem é feita por uma variável, enquanto em assembly usamos um registrador. Percebe-se que com o mesmo módulo de contagem, o contador em assembly é consideravelmente mais rápido do que em C, por requerer menos instruções e acessos à memória. Segue o código:
+
+<pre>// LED Vermelho com catodo ligado em PTB18
+// LED Verde com catodo ligado em PTB19
+
+#define SIM_SCGC5   (*(unsigned int volatile *) 0x40048038) // Habilita as Portas do GPIO (Reg. SIM_SCGC5)
+#define PORTB_PCR18 (*(unsigned int volatile *) 0x4004A048) // MUX de PTB18 (Reg. PORTB_PCR18)
+#define PORTB_PCR19 (*(unsigned int volatile *) 0x4004A04C) // MUX de PTB19 (Reg. PORTB_PCR19)
+#define GPIOB_PDDR  (*(unsigned int volatile *) 0x400FF054) // Data direction do PORTB (Reg. GPIOB_PDDR)
+#define GPIOB_PTOR  (*(unsigned int volatile *) 0x400FF04C) // Toggle register do PORTB (Reg. GPIOB_PTOR)
+#define MAX_COUNT   1000000
+#define BIT18       0x00040000
+
+void init_GPIO(){
+   SIM_SCGC5   = SIM_SCGC5   | 0x00000400;    // Habilita clock GPIO do PORTB
+   PORTB_PCR18 = PORTB_PCR18 &amp; 0xFFFFF8FF;    // Zera bits de MUX de PTB18
+   PORTB_PCR18 = PORTB_PCR18 | 0x00000100;    // Seta bit 0 do MUX de PTB18, assim os bits de MUX serão 001
+   GPIOB_PDDR  = GPIOB_PDDR  | BIT18;         // Seta pino 18 do PORTB como saída
+}
+int main(void){
+   init_GPIO();
+ /*
+    int counter = 0;
+    for(;;) {
+           counter++;
+           if (counter == MAX_COUNT){
+               GPIOB_PTOR = BIT18;        // Toggle bit 18, LED vermelho em PTB18
+               counter = 0;
+               }
+           }
+      */
+    __asm volatile(
+            "ldr r1, =1000000 \n"         // r1 &lt;- MAX_COUNT
+            "ldr r2, =0x400FF04C \n"      // r2 &lt;- GPIO_PTOR
+            "ldr r3, =0x00040000 \n"      // r3 &lt;- BIT18
+            "mov r0,#0 \n"                // r0 &lt;- 0 , inicializa counter
+            "loop:  \n"
+            "add r0,r0,#1 \n"             // counter++;
+            "cmp r0, r1 \n"               // if(counter == MAX_COUNT)
+            "bne loop \n"
+            "str r3, [r2] \n"             // Toggle LED
+            "mov r0, #0 \n"               // zera counter
+            "bal loop \n"
+    );
+
+    return 0;
+}</pre>

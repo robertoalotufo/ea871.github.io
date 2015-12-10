@@ -1,0 +1,159 @@
+O programa a seguir está escrito em assembly. Para rodar este programa, é preciso colocá-lo no CodeWarrior de forma similar ao que fazermos com os programas em C, a diferença é que na hora de criar o projeto, é preciso dizer que é um projeto em Assembler e não em C.
+
+
+<pre>/* This assembly file uses GNU syntax */
+	.text
+	.section    .rodata
+    	.align      2
+
+    	.text
+    	.align 	   2
+    	.global    main
+    	.type main function
+
+main:
+	@ Habilita clock GPIO do PORTB
+	@ SIM_SCGC5 = SIM_SCGC5 | BIT10
+    	ldr r3, SIM_SCGC5
+	ldr r1, [r3]
+    	ldr r2, BIT10
+	orr r1, r1, r2
+	str r1, [r3]
+
+	@ PORTB_PCR18 = SET_MUX
+	ldr r1, PORTB_PCR18
+	ldr r2, SET_MUX
+	str r2, [r1]
+
+	@ GPIOB_PDDR = BIT18
+	ldr r1, GPIOB_PDDR
+	ldr r2, BIT18
+	str r2, [r1]
+
+toggle_led:
+	@ GPIOB_PTOR = BIT18
+    	ldr r3, GPIOB_PTOR
+	ldr r1, [r3]
+	ldr r2, BIT18
+	str r2, [r3]
+
+	@ Espera tempo laço decrementa DELAY
+	ldr r0, DELAY
+loop:
+	sub r0, r0, #1
+	cmp r0, #0
+  	bne loop
+
+	b toggle_led
+
+    	.align	2
+SIM_SCGC5:	@ Endereço do SIM_SCGC5
+    	.word 	0x40048038
+PORTB_PCR18:    @ Endereço do PORTB_PCR18
+    	.word  	0x4004A048
+GPIOB_PDDR:    	@ Endereço do GPIOB_PDDR
+    	.word 	0x400FF054
+GPIOB_PTOR:    	@ Endereço do GPIOB_PTOR
+    	.word  	0x400FF04C
+SET_MUX:
+    	.word  	0x00000100
+BIT10:
+    	.word   0x00000400
+BIT18:
+    	.word  	0x00040000
+DELAY:
+    	.word  	500000
+    	.end</pre>
+
+Dentro do CodeWarrior, é possível visualizar o código assembly de qualquer programa, tanto de programas feito em C, como de programas feitos em Assembly.
+Uma vez colocado o programa acima no CodeWarrior, pressione o botão esquerdo do mouse quando selecionar o arquivo main.s e você terá o programa desmontado ("disassembler") abaixo.
+
+Disassembler
+<pre>Disassembly of section .text:
+
+00000000 &lt;main&gt;:
+    	.type main function
+
+main:
+	@ Habilita clock GPIO do PORTB
+	@ SIM_SCGC5 = SIM_SCGC5 | BIT10
+    	ldr r3, SIM_SCGC5
+   0:	4b09      	ldr	r3, [pc, #36]	; (28 &lt;SIM_SCGC5&gt;)
+	ldr r1, [r3]
+   2:	6819      	ldr	r1, [r3, #0]
+    	ldr r2, BIT10
+   4:	4a0d      	ldr	r2, [pc, #52]	; (3c &lt;BIT10&gt;)
+	orr r1, r1, r2
+   6:	4311      	orrs	r1, r2
+	str r1, [r3]
+   8:	6019      	str	r1, [r3, #0]
+
+	@ PORTB_PCR18 = SET_MUX
+	ldr r1, PORTB_PCR18
+   a:	4908      	ldr	r1, [pc, #32]	; (2c &lt;PORTB_PCR18&gt;)
+	ldr r2, SET_MUX
+   c:	4a0a      	ldr	r2, [pc, #40]	; (38 &lt;SET_MUX&gt;)
+	str r2, [r1]
+   e:	600a      	str	r2, [r1, #0]
+
+	@ GPIOB_PDDR = BIT18
+	ldr r1, GPIOB_PDDR
+  10:	4907      	ldr	r1, [pc, #28]	; (30 &lt;GPIOB_PDDR&gt;)
+	ldr r2, BIT18
+  12:	4a0b      	ldr	r2, [pc, #44]	; (40 &lt;BIT18&gt;)
+	str r2, [r1]
+  14:	600a      	str	r2, [r1, #0]
+
+00000016 &lt;toggle_led&gt;:
+
+toggle_led:
+	@ GPIOB_PTOR = BIT18
+    	ldr r3, GPIOB_PTOR
+  16:	4b07      	ldr	r3, [pc, #28]	; (34 &lt;GPIOB_PTOR&gt;)
+	ldr r1, [r3]
+  18:	6819      	ldr	r1, [r3, #0]
+	ldr r2, BIT18
+  1a:	4a09      	ldr	r2, [pc, #36]	; (40 &lt;BIT18&gt;)
+	str r2, [r3]
+  1c:	601a      	str	r2, [r3, #0]
+
+	@ Espera tempo
+	ldr r0, DELAY
+  1e:	4809      	ldr	r0, [pc, #36]	; (44 &lt;DELAY&gt;)
+
+00000020 &lt;loop&gt;:
+loop:
+	sub r0, r0, #1
+  20:	3801      	subs	r0, #1
+	cmp r0, #0
+  22:	2800      	cmp	r0, #0
+  	bne loop
+  24:	d1fc      	bne.n	20 &lt;loop&gt;
+
+	b toggle_led
+  26:	e7f6      	b.n	16 &lt;toggle_led&gt;
+
+00000028 &lt;SIM_SCGC5&gt;:
+  28:	40048038 	.word	0x40048038
+
+0000002c &lt;PORTB_PCR18&gt;:
+  2c:	4004a048 	.word	0x4004a048
+
+00000030 &lt;GPIOB_PDDR&gt;:
+  30:	400ff054 	.word	0x400ff054
+
+00000034 &lt;GPIOB_PTOR&gt;:
+  34:	400ff04c 	.word	0x400ff04c
+
+00000038 &lt;SET_MUX&gt;:
+  38:	00000100 	.word	0x00000100
+
+0000003c &lt;BIT10&gt;:
+  3c:	00000400 	.word	0x00000400
+
+00000040 &lt;BIT18&gt;:
+  40:	00040000 	.word	0x00040000
+
+00000044 &lt;DELAY&gt;:
+  44:	0007a120 	.word	0x0007a120
+</pre>
