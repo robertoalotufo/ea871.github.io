@@ -1,0 +1,101 @@
+Pesquisando no manual da série KL25Z é possível verificar a possibilidade de configurar o pino PTC3 ao sinal CLKOUT utilizando a opção de Alternative 5 para o MUX deste pino(tabela da seção 10.3.1 do manual do KL25Z). Para isso, deve-se ir ao registrador PORTC_PCR3 e configurar o campo de MUX com a constante "101", selecionando assim a opção Alternative 5 para o pino, e portanto, realizando a ligação entre o pino PTC3 e o sinal CLKOUT.
+O sinal CLKOUT pode ser configurado como saída de algum clock, que vamos selecionar mais adiante, para visualizarmos no osciloscópio.
+O pino PTC3 tem ligação a um dos pinos da placa SHIELD, tornando possível a medição do sinal CLKOUT.
+<br>
+Para selecionar o sinal de clock que deve ser direcionado para o pino PTC3, devemos configurar o registrador SIM_SOPT2, que é um registrador que guarda algumas configurações de clock do sistema. (Verificar seção 12.2.3 do manual do KL25Z) Observando a especificação do manual é possível notar que o campo "CLKOUTSEL" deve ser preenchido com "010", para que "Bus Clock" seja selecionado.
+<br>
+É interessante também colocar o pino PTE23 como saída e realizar a operação de toggle repetidamente, criando uma onda quadrada artificialmente. A escolha desse pino se deve ao fato dele estar presente na porta serial da placa SHIELD e por isso a medição se torna mais fácil. (Verificar manual da placa SHIELD e a localização do pino)
+<br>
+É possível utilizar o seguinte código para configurar o sinal do "Bus Clock" como saída do pino PTC3 e gerar uma onda quadrada no pino PTE23.
+<br>
+<pre>/* This assembly file uses GNU syntax */
+    .text
+	.section    .rodata
+    	.align      2
+
+    	.text
+    	.align 	   2
+    	.global    main
+    	.type main function
+
+main:
+	@ Seleciona Bus Clock
+	@ SIM_SOPT2 |= (1&lt;&lt;6);
+	ldr r3, SIM_SOPT2
+	ldr r2, BIT6
+	str r2, [r3]
+
+	@ Habilita clock GPIO do PORTC e PORTE
+	@ SIM_SCGC5 = (1&lt;&lt;11) + (1&lt;&lt;13);
+	ldr r3, SIM_SCGC5
+	ldr r2, BIT13e11
+	str r2, [r3]
+
+	@ PORTC_PCR3 = SET_MUX_5
+	ldr r1, PORTC_PCR3
+	ldr r2, SET_MUX_5
+	str r2, [r1]
+
+	@ GPIOC_PDDR = BIT3
+	ldr r1, GPIOC_PDDR
+	ldr r2, BIT3
+	str r2, [r1]
+
+	@ PORTE_PCR23 = SET_MUX
+	ldr r1, PORTE_PCR23
+	ldr r2, SET_MUX
+	str r2, [r1]
+
+	@ GPIOE_PDDR = BIT23
+	ldr r1, GPIOE_PDDR
+	ldr r2, BIT23
+	str r2, [r1]
+
+	@ Laço de geração da onda quadrada PTE23
+toggle_pte23:
+	@ GPIOE_PTOR = BIT23
+	ldr r3, GPIOE_PTOR
+	ldr r2, BIT23
+	str r2, [r3]
+	b toggle_pte23
+
+    	.align	4
+SIM_SOPT2:      @ Endereço do SIM_SOPT2
+        .word   0x40048004
+SIM_SCGC5:	@ Endereço do SIM_SCGC5
+    	.word 	0x40048038
+PORTC_PCR3:     @ Endereço do PORTC_PCR3
+        .word 	0x4004B00C
+PORTE_PCR23:    @ Endereço do PORTE_PCR23
+        .word   0x4004D05C
+GPIOC_PDDR:    	@ Endereço do GPIOC_PDDR
+        .word   0x400FF094
+GPIOE_PDDR:     @ Endereço do GPIOE_PDDR
+        .word   0x400FF114
+GPIOE_PTOR:    	@ Endereço do GPIOE_PTOR
+        .word   0x400FF10C
+SET_MUX:
+    	.word  	0x100
+SET_MUX_5:
+        .word  	0x500
+BIT3:
+        .word   0x8
+BIT6:
+        .word   0x40
+BIT13e11:
+        .word   0x2800
+BIT23:
+        .word   0x800000
+    	.end
+
+</pre>
+
+O sinal quadrado gerado pelo toggle do pino PTE23 pode ser visualizado no osciloscópio a partir da seguinte conexão:
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idvvjiwubv0r/PTE23.png">
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idvs69fl5s5q/porte23.png">
+
+O sinal de clock (PTC3) pode ser visualizado no osciloscópio ao conectarmos a ponteira do osciloscópio ao seguinte pino:
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idvvkbchsp9v/PTC3.png">
+(OBS: O terra para essa medição é o mesmo da imagem acima, para o toggle de PTE23)
+
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idvs3czm8ehc/pino.jpg" height="508" width="598">

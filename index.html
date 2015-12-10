@@ -22,7 +22,11 @@
     $("#prep32").load("docs/prep3/prep3asm.html");
     $("#prep33").load("docs/prep3/prep3misto.html");
     $("#rot4").load("docs/prep4/rot4.html");
+    $("#prep41").load("docs/prep4/prep4inst.html");
+    $("#prep42").load("docs/prep4/prep4osci.html");
     $("#rot5").load("docs/prep5/rot5.html");
+    $("#prep51").load("docs/prep5/prep5lcd.html");
+    $("#prep52").load("docs/prep5/prep5char.html");
     $("#rot6").load("docs/prep6/rot6.html");
     $("#rot7").load("docs/prep7/rot7.html");
     $("#rot8").load("docs/prep8/rot8.html");
@@ -40,40 +44,112 @@
   <div class = "container-fluid" style="background-color:whitesmoke;">
     <nav class = "col-sm-2">
       <ul class="nav nav-pills nav-stacked" data-spy="affix">
-        <li><a data-toggle="collapse" href="#collapse1">Roteiros</a></li>
-        <div id="collapse1" class="collapse">
-          <ul class="nav nav-pills nav-stacked" data-spy="affix">
-            <li><a data-toggle="pill" href="#view1">Roteiro 1</a></li>
-            <li><a data-toggle="pill" href="#view2">Roteiro 2</a></li>
-            <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse3">Preparação 3</a>
-              <div id="collapse3" class="collapse">
-                <ul class="nav nav-pills nav-stacked">
-                  <li><a data-toggle="pill" href="#view3">Roteiro 3</a></li>
-                  <li><a data-toggle="pill" href="#view31">ARM Cortex</a></li>
-                  <li><a data-toggle="pill" href="#view32">Programa em Assembly</a></li>
-                  <li><a data-toggle="pill" href="#view33">Programa Misto</a></li>
-                </ul>
-              </div>
-            </li>
-            <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse4">Preparação 4</a>
-              <div id="collapse4" class="collapse">
-                <ul class="nav nav-pills nav-stacked">
-                  <li><a data-toggle="pill" href="#view4">Roteiro 4</a></li>
-                </ul>
-              </div>
-            </li>
-            <li><a data-toggle="pill" href="#view5">Roteiro 5</a></li>
-            <li><a data-toggle="pill" href="#view6">Roteiro 6</a></li>
-            <li><a data-toggle="pill" href="#view7">Roteiro 7</a></li>
-            <li><a data-toggle="pill" href="#view8">Roteiro 8</a></li>
-            <li><a data-toggle="pill" href="#view9">Roteiro 9</a></li>
-            <li><a data-toggle="pill" href="#view10">Roteiro 10</a></li>
-            <li><a data-toggle="pill" href="#view11">Roteiro 11</a></li>
-            <li><a data-toggle="pill" href="#view12">Roteiro 12</a></li>
-            <li><a data-toggle="pill" href="#view13">Roteiro 13</a></li>
-            <li><a data-toggle="pill" href="#view14">Roteiro do Projeto</a></li>
-          </ul>
-        </div>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse1">Experimento 1</a>
+          <div id="collapse1" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view1">Roteiro 1</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse2">Experimento 2</a>
+          <div id="collapse2" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view2">Roteiro 2</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse3">Experimento 3</a>
+          <div id="collapse3" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view3">Roteiro 3</a></li>
+              <li><a data-toggle="pill" href="#view31">ARM Cortex</a></li>
+              <li><a data-toggle="pill" href="#view32">Programa em Assembly</a></li>
+              <li><a data-toggle="pill" href="#view33">Programa Misto ARM e C</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse4">Experimento 4</a>
+          <div id="collapse4" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view4">Roteiro 4</a></li>
+              <li><a data-toggle="pill" href="#view41">Acessos à memória</a></li>
+              <li><a data-toggle="pill" href="#view42">Visualização no osciloscópio</a></li>
+              <li><a data-toggle="pill" href="#view33">Programa Misto ARM e C</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse5">Experimento 5</a>
+          <div id="collapse5" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view5">Roteiro 5</a></li>
+              <li><a data-toggle="pill" href="#view51">Display LCD</a></li>
+              <li><a data-toggle="pill" href="#view52">Caracteres especiais</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse6">Experimento 6</a>
+          <div id="collapse6" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view6">Roteiro 6</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse7">Experimento 7</a>
+          <div id="collapse7" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view7">Roteiro 7</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse8">Experimento 8</a>
+          <div id="collapse8" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view8">Roteiro 8</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse9">Experimento 9</a>
+          <div id="collapse9" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view9">Roteiro 9</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse10">Experimento 10</a>
+          <div id="collapse10" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view10">Roteiro 10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse11">Experimento 11</a>
+          <div id="collapse11" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view11">Roteiro 11</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse12">Experimento 12</a>
+          <div id="collapse12" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view12">Roteiro 12</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse13">Experimento 13</a>
+          <div id="collapse13" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view13">Roteiro 13</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a data-toggle="collapse" data-parent="#collapse1" href="#collapse14">Projeto</a>
+          <div id="collapse14" class="collapse">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-toggle="pill" href="#view14">Roteiro do Projeto</a></li>
+            </ul>
+          </div>
+        </li>
       </ul>
     </nav>
     <div class = "col-sm-9" style="background-color:;">
@@ -114,18 +190,46 @@
           </div>
           <div id = "prep33"></div>
         </div>
+
         <div id="view4" class="tab-pane">
           <div class = "page-header">
             <h2> Roteiro 4 - Assembly - Ciclos e execução das instruções </h2>
           </div>
           <div id = "rot4" class="tab-pane"></div>
         </div>
+        <div id="view41" class="tab-pane">
+          <div class = "page-header">
+            <h2>Exemplo de análise de acessos memória de programa em ASM</h2>
+          </div>
+          <div id="prep41"></div>
+        </div>
+        <div id="view42" class="tab-pane">
+          <div class = "page-header">
+            <h2>Como visualizar o clock e onda quadrada no osciloscópio</h2>
+          </div>
+          <div id="prep42"></div>
+        </div>
+
         <div id="view5" class="tab-pane">
           <div class = "page-header">
             <h2> Roteiro 5 - Display LCD </h2>
           </div>
           <div id="rot5"></div>
         </div>
+        <div id="view51" class="tab-pane">
+          <div class = "page-header">
+            <h2>Funcionamento da interface com display LCD</h2>
+          </div>
+          <div id="prep51"></div>
+        </div>
+        <div id="view52" class="tab-pane">
+          <div class = "page-header">
+            <h2>Display LCD – Criando caracteres especiais</h2>
+          </div>
+          <div id="prep52"></div>
+        </div>
+
+
         <div id="view6" class="tab-pane">
           <div class = "page-header">
             <h2>Roteiro 6 - UART</h2>

@@ -1,0 +1,75 @@
+
+Galera vocês devem ter notado que no set de instruções do display LCD temos dois modos de endereçamento o Set DD RAM e o Set CG RAM.
+O DD RAM serve para definir qual a posição que vamos escrever os dados no LCD, mas e o CG RAM?
+Este ultimo endereça uma região de memoria interna do LCD onde podemos editar e criar novos caracteres. No manual do LCD temos está região na tabela das fontes ilustrada abaixo.
+
+
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieotwuytbrgh/Sem_título2.png">
+
+Como podemos ver a CG RAM está na primeira coluna dessa tabela e numerada de 1 – 8, essa numeração está repetida o que quer dizer que temos dois valores diferentes para enviar cada caractere da CG RAM para o display, o importante por enquanto e saber que temos 8 espaços para criação de caracteres.
+
+Agora como endereçar esses oito espaços se a instrução Set CG RAM tem 6 bits o que quer dizer que essa instrução endereça 64 posições? Na verdade é bem simples eu usei as palavras ‘espaço’ e ‘posições’ porque são coisas diferentes dentro da CG RAM, um espaço corresponde ao caractere e cada posição a uma linha do caractere, como nosso LCD trabalha como uma grade de 5x8 temos oito linha para cada caractere da CG RAM como temos oito espaço com oito linha devemos endereçar 64 posiçõe.
+
+E para terminar devemos mandar o dado relativo ao caractere que vamos criar linha por linha sendo que como temos apenas cinco colunas por caractere apenas os 5 bits menos significativos importam sendo que ‘1’ representa pixel ligado e ‘0’ desligado.
+
+Ficou complicado de entender ainda? Bem vamos para um exemplo pratico, eu vou usar as funções que deveriam ser criadas no programa 5 e colocar aqui apenas a parte do ‘main’.
+
+Dentro desse programa eu vou criar os caracteres ‘ç’ e ‘ã’ que não existem na grade base de caracteres do display, primeiro eu vou desenha cada caractere dentro da grade 5x8 para saber quais os dados devo enviar.
+
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieouhrj91u67/Sem_título3.png">
+
+Com os caracteres desenhados e os dados definidos falta escolher qual posição vamos escrever na CG RAM, só para complicar vou pegar duas posições não consecutivas, portanto teremos o ‘ç’ na posição 1 e ‘ã’ na posição 5.
+Abaixo o programa:
+
+<pre>int main(void)
+{
+	delay10us(3000);	//espera de 30 ms
+	init_GPIO_LCD();	// inicializa a PORTC para usar o display LCD
+	init_LCD();	//inicializa o LCD
+
+	sendcmd_LCD( 0x040, 40); //endereça a posição 0 do espaço 1 da CG RAM (000000 - AC5~AC0)
+
+	// a partir daqui podemos enviar os dados definidos no desenho pois o LCD
+	//foi inicializado de forma incremental ou seja os endereços são sempre incrementados
+	// como os 'x' da tabela são indefinidos estou enviando '0'
+	// enviado os dados para criar o 'ç'
+	putchar_LCD( 0x00);
+	putchar_LCD( 0x00);
+	putchar_LCD( 0x0E);
+	putchar_LCD( 0x10);
+	putchar_LCD( 0x10);
+	putchar_LCD( 0x11);
+	putchar_LCD( 0x0E);
+	putchar_LCD( 0x04);
+
+	sendcmd_LCD( 0x060, 40); //endereça a posição 0 do espaço 5 da CG RAM (100000 - AC5~AC0)
+	// enviado os dados para criar o 'ã'
+	putchar_LCD( 0x05);
+	putchar_LCD( 0x0A);
+	putchar_LCD( 0x00);
+	putchar_LCD( 0x0E);
+	putchar_LCD( 0x01);
+	putchar_LCD( 0x0F);
+	putchar_LCD( 0x11);
+	putchar_LCD( 0x0F);
+
+	// agora para testar os caracteres enviamos a palavra 'alçapão'
+
+	sendcmd_LCD( 0x084, 40); // define uma posição centralizada para a palavra no LCD
+	putchar_LCD( 'a');
+	putchar_LCD( 'l');
+	//como criamos esse caractere o código dele  é diferente de 'ç' em ASCII
+	//portanto devemos usar o código da tabela de fontes aqui podemos usar dois valores
+	// pois temos dois locais reservados para cada caractere criado nessa tabela
+	// para o 'ç' que criamos no espaço 1 podemos usar 0x00 ou 0x08
+	putchar_LCD( 0x00);
+	putchar_LCD( 'a');
+	putchar_LCD( 'p');
+	// para o 'ã' que criamos no espaço 5 podemos usar 0x04 ou 0x0C
+	putchar_LCD( 0x04);
+	putchar_LCD( 'o');
+
+	return 0;
+}</pre>
+
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieotqimfr2jo/20150917_1924541.jpg" height="251" width="335">
