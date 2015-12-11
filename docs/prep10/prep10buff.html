@@ -1,0 +1,45 @@
+<p>
+O buffer circular de transmissão é uma estrutura de dados muito comum utilizada quando existem comunicação de dados entre processos produtor-consumidor.
+</p><p>
+A grande dificuldade desta implementação é a possibilidade da denominada "<strong>condição de corrida</strong>" que pode ocorrer entre os processos produtor (putchar) e o consumidor (handler de interrupção), dependendo do instante em que a execução do <tt>putchar_UART</tt> for interrompido pelo handler de tratamento da transmissão da UART.
+</p><p>
+Veja que o processo produtor-consumir é um tema de sistemas operacionais e é uma das principais formas de comunicação de dados entre dois processos. Veja a página da Wikipedia (<a href="http://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem" target="_blank">Producer/consumer Problem</a>) que discute algumas implementações do buffer circular entre processos. Observe que existem duas implementações do buffer circular discutidos nesta página da Wikipedia. O primeiro, usa uma variável que indica o número de caracteres no buffer circular, onde existe a possibilidade de "race condition", i.e. dois processos (interrupção e programa principal) acessarem a mesma variável, um para incrementar o número de caracteres no buffer e outro para decrementar o número de caracteres no buffer. Se usarmos esta solução, haverá necessidade de inibir a interrupção no momento de inserção de caractere no buffer. Existe porém uma sugestão de implementação que não ocorre este problema, desde que usemos apenas duas variáveis para controlar o buffer, como sugerido na página mencionada da Wikipedia.
+</p><p>
+Dessa forma, como temos várias turmas, a sugestão é que as
+<ul><li>Turmas S, E e W implementem a sugestão com n. de caracteres no buffer (n_buffer) e consequentemente haverá necessidade de inibir interrupção Tx (TIE) na função putchar no incremento de n_buffer.</li><li>Turmas T, M e U implementem a sugestão sem a variável n_buffer, seguindo a recomendação da página da Wikipedia.</li></ul>
+</p><p>
+No nosso exemplo, o processo produtor será a função <strong>putchar_UART0(char c)</strong> que é responsável por enviar o caractere para a fila de impressão, no caso o buffer circular. O processo consumidor será a subrotina de tratamento da interrupção da transmissão de caracteres da UART0 que faz parte da <strong>UART0_IRQHandler</strong>. Estes processos são assíncronos e possuem cargas diferentes, pois quando o programa principal enviar uma mensagem para o terminal serial, normalmente esta mensagem é composta de vários caracteres que precisam ser enviados naquele instante. Já o processo consumidor depende da taxa de transmissão da UART0 (no caso 19200 bps) de modo que cada caractere demora aprox. 0.5 ms para ser transmitido.
+</p><p>
+<strong>Solução recomendada para as Turmas S, E e W</strong>
+</p><p>
+O Buffer circular pode ser ser composto de 4 variáveis globais:
+<ul><li></li><li>o buffer em si: <strong>char buffer[NMAX];</strong>,</li><li>o índice para inserir caracteres <strong>int pi;</strong> e</li><li>o índice para retirar caracteres: <strong>int po;</strong></li><li>número de caracteres no buffer: <strong>n_buffer</strong>.</li></ul>
+</p><p>
+Na inicialização, <strong>n_buffer</strong>, <strong>pi</strong> e <strong>po</strong> são todos zeros indicando que o buffer está vazio. Na inicialização, a interrupção para transmissão deve estar inibida, pois neste momento não há caractere a ser transmitido.
+</p><p>
+A rotina <strong>putchar(char c)</strong> deve ser verificar se o buffer circular não está cheio, e inserir o caractere <strong>c</strong> no buffer, para isto deve-se incrementar <strong>pi</strong> com a operação módulo (%) com NMAX pelo fato do buffer ser circular e deve incrementar <strong>n_buffer</strong> porém imediatamente antes e depois deve-se inibir a interrupção por transmissão (TIE), evitando-se assim a condição de corrida.
+Se o caractere a ser inserido no buffer é o primeiro caractere, a interrupção por transmissão deve ser habilitada.
+Se o buffer estiver cheio, <strong>putchar</strong> deve esperar até que não esteja cheio para poder enviar novo caractere.
+</p><p>
+A rotina de tratamento de interrupção da transmissão da UART0 deve cuidar do seguinte. Quando ocorrer a interrupção, deve-se identificar se a interrupção é devido a RX ou a TX, pois agora ambos eventos estão habilitados para gerar interrupção. Assim, se a interrupção foi pelo fato do transmissor estar pronto para transmitir novo caractere, deve-se retirar um caractere do buffer circular fazendo-se <strong>c = buffer[po];</strong> deve-se incrementar o índice de saída: <strong>po = (po + 1) % NMAX;</strong> e decrementar <strong>n_buffer</strong>. Observe que como este decremento ocorre dentro da subrotina de interrupção, não existe o perigo da putchar interrompê-la e portanto não há necessidade de proteger o decremento de <strong>n_buffer</strong> contra outras interrupções. Se o buffer circular ficar vazio, então a interrupção de transmissão deve ser desabilitada pois não há mais novo caractere a ser transmitido.
+</p><p>
+Como deve ser testado as condições de buffer circular cheio e buffer circular vazio?
+</p><p>
+<strong>Solução Recomendada para as Turmas T, M e U</strong>
+</p><p>
+Para as Turmas T, M e U, recomenda-se a implementação <strong>sem</strong> o uso da variável <strong>n_buffer</strong>, evitando-se assim a condição de corrida. Para esta implementação funcionar, deve-se atender fielmente as recomendações da página da Wikipedia. Coloque os principais cuidados:
+<ul><li>os índices <strong>pi</strong> e <strong>po</strong> deve ser unsigned int (32 bits sem sinal)</li><li>a escolha de <strong>NMAX</strong> deve ser tal que NMAX deve ser divisor de 2**32, assim 512 ou 1024 são boas opções de tamanho de buffer</li><li>observe que pi - po indicará o número de caracteres no buffer e sempre será um valor &gt;= 0, mesmo se pi ou po estourar os 32 bits. (Por quê?) </li></ul>
+</p><p>
+
+<strong>Lembretes:</strong>
+</p><p>
+- Para que as interrupções da UART0 funcionem é preciso:
+<ul><li>NVIC deve estar com o irq da UART0 habilitado</li><li>TIE da UART0 habilita e desabilita localmente a interrupção na transmissão (na inicialização deve estar desabilitada)</li><li>RIE da UART0 habilita e desabilita localmente a interrupção na recepção (na inicialização deve estar habilitada)</li></ul>
+</p><p>
+- No UART0_IRQHandler é preciso testar os flags TDRE e RDRF para identificar qual foi o motivo da interrupção.
+</p><p>
+<strong>Referências</strong>:
+</p><p>
+- <a href="http://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem" target="_blank">Wikipedia: Producer-consumer problem</a>
+- <a href="http://en.wikipedia.org/wiki/Race_condition" target="_blank">Wikipedia: Race_condition</a> (condição de corrida)
+</p>

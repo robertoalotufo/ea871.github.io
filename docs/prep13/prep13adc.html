@@ -1,0 +1,37 @@
+<p>
+A implementação do conversor AD deste experimento utilizará a estratégia de aproximações sucessivas.
+</p><p>
+O módulo utiliza um conversor digital-analógico e um comparador para encontrar qual a melhor aproximação para o valor sendo convertido.
+</p><p>
+Inicialmente ele chuta um possível valor para a resposta da conversão. Este valor então é convertido para sua forma analógica com o conversor DA e é comparado com o sinal de entrada. A partir da resposta do comparador, o módulo de controle busca um novo valor que melhor aproxima o sinal de entrada.
+</p><p>
+Para encontrar o nível correto utiliza-se o algoritmo da busca binária entre todos os possíveis valores digitais.
+</p><p>
+A figura abaixo ilustra como está esquematizada a conversão.
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/ig9raszc392r/adc.png">
+</p><p>
+O esquema representado a seguir foi retirado do capítulo 28 da documentação do microcontrolador. Neste esquema, é possível visualizar ao centro a estrutura responsável pela conversão através da técnica explicada anteriormente e vários outros registradores de configuração do módulo, que também serão descritos neste roteiro.
+</p><p>
+
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/ig9s5tyqgzt2/adc.png">
+</p><p>
+A ativação do módulo conversor é realizada em SIM_SCGC6.
+</p><p>
+A tabela de Multiplexação dos Pinos deve ser consultada de maneira a se conectar PTB1 ao conversor.
+</p><p>
+Para configurar a operação do conversor, os registradores de controle são: ADC0_CFG1, ADC0_SC2, ADC0_SC3, ADC0_SC1A.
+</p><p>
+Deve-se consultar o manual de maneira a configurá-los para o funcionamento descrito no Roteiro.
+</p><p>
+Para checar se a conversão está pronta, existe uma flag a ser testada em ADC0_SC1A e o resultado da conversão fica armazenado em ADC0_RA.
+As conexões devem ser realizadas de acordo com a imagem abaixo:
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/igdvfskcesgd/potenciometo.png" height="227" width="572">
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/igdyl830wmby/potenciometo.png">
+</p><p>
+
+Referências:
+</p><p>
+<ul><li><a href="https://en.wikipedia.org/wiki/Successive_approximation_ADC" target="_blank">Wikipedia: Successive_approximation_ADC</a></li></ul>
+</p>

@@ -16,7 +16,13 @@
   <script>
   $(function() {
     $("#rot1").load("docs/prep1/rot1.html");
+    $("#prep11").load("docs/prep1/prep1code.html");
     $("#rot2").load("docs/prep2/rot2.html");
+    $("#prep21").load("docs/prep2/prep2push.html");
+    $("#prep22").load("docs/prep2/prep2leds.html");
+    $("#prep23").load("docs/prep2/prep2macro.html");
+    $("#prep24").load("docs/prep2/prep2gpio.html");
+    $("#prep25").load("docs/prep2/prep2debug.html");
     $("#rot3").load("docs/prep3/rot3.html");
     $("#prep31").load("docs/prep3/prep3arm.html");
     $("#prep32").load("docs/prep3/prep3asm.html");
@@ -43,9 +49,14 @@
     $("#prep91").load("docs/prep9/prep9keys.html");
     $("#prep92").load("docs/prep9/prep9nvic.html");
     $("#rot10").load("docs/prep10/rot10.html");
+    $("#prep101").load("docs/prep10/prep10buff.html");
+    $("#prep102").load("docs/prep10/prep10asci.html");
     $("#rot11").load("docs/prep11/rot11.html");
+    $("#prep111").load("docs/prep11/prep11tpm.html");
     $("#rot12").load("docs/prep12/rot12.html");
+    $("#prep121").load("docs/prep12/prep12input.html");
     $("#rot13").load("docs/prep13/rot13.html");
+    $("#prep131").load("docs/prep13/prep13adc.html");
     $("#rotproj").load("docs/rotproj.html");
   });
   </script>
@@ -65,6 +76,7 @@
           <div id="collapse1" class="panel-collapse collapse">
             <ul class="list-group">
               <a class = "list-group-item" data-toggle="pill" href="#view1">Roteiro 1</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view11">Programa LED RGB</a>
             </ul>
           </div>
         </div>
@@ -78,6 +90,11 @@
           <div id="collapse2" class="panel-collapse collapse">
             <ul class="list-group">
               <a class = "list-group-item" data-toggle="pill" href="#view2">Roteiro 2</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view22">Programa 8 LEDs</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view21">Programa Push Buttons</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view23">Macros GPIO</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view24">Programação com GPIO</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view25">Tutorial debug</a>
             </ul>
           </div>
         </div>
@@ -205,7 +222,8 @@
           <div id="collapse10" class="panel-collapse collapse">
             <ul class="list-group">
               <a class = "list-group-item" data-toggle="pill" href="#view10">Roteiro 10</a>
-
+              <a class = "list-group-item" data-toggle="pill" href="#view101">Buffer Circular</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view102">Conversão ASCII</a>
               <a class = "list-group-item" data-toggle="pill" href="#view81">Esclarecimentos</a>
               <a class = "list-group-item" data-toggle="pill" href="#view73">Funções LCD e UART</a>
             </ul>
@@ -221,6 +239,7 @@
           <div id="collapse11" class="panel-collapse collapse">
             <ul class="list-group">
               <a class = "list-group-item" data-toggle="pill" href="#view11">Roteiro 11</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view111">PWM e Módulo TPM</a>
             </ul>
           </div>
         </div>
@@ -234,6 +253,7 @@
           <div id="collapse12" class="panel-collapse collapse">
             <ul class="list-group">
               <a class = "list-group-item" data-toggle="pill" href="#view12">Roteiro 12</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view121">Input Capture</a>
             </ul>
           </div>
         </div>
@@ -247,6 +267,7 @@
           <div id="collapse13" class="panel-collapse collapse">
             <ul class="list-group">
               <a class = "list-group-item" data-toggle="pill" href="#view13">Roteiro 13</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view131">Conversor AD</a>
             </ul>
           </div>
         </div>
@@ -275,12 +296,50 @@
           </div>
           <div id="rot1"></div>
         </div>
+        <div id="view11" class="tab-pane">
+          <div class = "page-header">
+            <h2>Programa Piscar LED Vermelho do LED RGB</h2>
+          </div>
+          <div id="prep11"></div>
+        </div>
+
         <div id="view2" class="tab-pane">
           <div class = "page-header">
             <h2> Roteiro 2 - GPIO - acender 8 LEDs e ler 3 botões de pressão </h2>
           </div>
           <div id = "rot2"></div>
         </div>
+        <div id="view21" class="tab-pane">
+          <div class = "page-header">
+            <h2> Programa para a leitura dos 3 botões de pressão</h2>
+          </div>
+          <div id = "prep21"></div>
+        </div>
+        <div id="view22" class="tab-pane">
+          <div class = "page-header">
+            <h2> Programa para acendimento dos 8 LEDs vermelhos</h2>
+          </div>
+          <div id = "prep22"></div>
+        </div>
+        <div id="view23" class="tab-pane">
+          <div class = "page-header">
+            <h2> MKL25Z4.h Definições da GPIO </h2>
+          </div>
+          <div id = "prep23"></div>
+        </div>
+        <div id="view24" class="tab-pane">
+          <div class = "page-header">
+            <h2> GPIO - Princípios e programação </h2>
+          </div>
+          <div id = "prep24"></div>
+        </div>
+        <div id="view25" class="tab-pane">
+          <div class = "page-header">
+            <h2>Tutorial para depuração com breakpoints e monitoramento de variáveis e memória</h2>
+          </div>
+          <div id = "prep25"></div>
+        </div>
+
         <div id="view3" class="tab-pane">
           <div class = "page-header">
             <h2> Roteiro 3 - Introdução ao assembler do KL25 - instruções Thumb - ARM-Cortex-0 </h2>
@@ -343,7 +402,6 @@
           </div>
           <div id="prep52"></div>
         </div>
-
 
         <div id="view6" class="tab-pane">
           <div class = "page-header">
@@ -446,8 +504,18 @@
           </div>
           <div id="rot10"></div>
         </div>
-
-
+        <div id="view101" class="tab-pane">
+          <div class = "page-header">
+            <h2>Buffer circular de transmissão - Processos produtor - consumidor - condição de corrida</h2>
+          </div>
+          <div id="prep101"></div>
+        </div>
+        <div id="view102" class="tab-pane">
+          <div class = "page-header">
+            <h2> Melhorando conversão inteiro para ASCII </h2>
+          </div>
+          <div id="prep102"></div>
+        </div>
 
         <div id="view11" class="tab-pane">
           <div class = "page-header">
@@ -455,18 +523,39 @@
           </div>
           <div id="rot11"></div>
         </div>
+        <div id="view111" class="tab-pane">
+          <div class = "page-header">
+            <h2>Módulo TPM - Timer e PWM </h2>
+          </div>
+          <div id="prep111"></div>
+        </div>
+
         <div id="view12" class="tab-pane">
           <div class = "page-header">
             <h2> Roteiro 12 - Input Capture </h2>
           </div>
           <div id="rot12"></div>
         </div>
+        <div id="view121" class="tab-pane">
+          <div class = "page-header">
+            <h2> Input Capture - Principio de funcionamento </h2>
+          </div>
+          <div id="prep121"></div>
+        </div>
+
         <div id="view13" class="tab-pane">
           <div class = "page-header">
             <h2> Roteiro 13 - Conversor AD - Voltímetro </h2>
           </div>
           <div id="rot13"></div>
         </div>
+        <div id="view131" class="tab-pane">
+          <div class = "page-header">
+            <h2>Funcionamento do conversor AD </h2>
+          </div>
+          <div id="prep131"></div>
+        </div>
+
         <div id="view14" class="tab-pane">
           <div class = "page-header">
             <h2>Roteiro do Projeto Final</h2>

@@ -1,0 +1,62 @@
+<p>
+Este é o programa exemplo para o acendimento dos 8 LEDs vermelhos da placa shield:
+</p>
+<pre>#include "derivative.h" /* include peripheral declarations */
+
+/* Inicializa os GPIOs */
+void inicGPIO(void) {
+	SIM_SCGC5 = 0x00000A00; // Habilita PORTA e PORTC
+
+	PORTC_PCR0  = 0x00000100; // Configura pin MUX control para PORTC aparecer nos pinos: (001)
+	PORTC_PCR1  = 0x00000100;
+	PORTC_PCR2  = 0x00000100;
+	PORTC_PCR3  = 0x00000100;
+	PORTC_PCR4  = 0x00000100;
+	PORTC_PCR5  = 0x00000100;
+	PORTC_PCR6  = 0x00000100;
+	PORTC_PCR7  = 0x00000100;
+	PORTC_PCR10 = 0x00000100;
+
+	GPIOC_PDDR = 0x000004FF; // Configura bits 0-7 e 10 do PORTC como saídas
+				 // LEDs apagados (bits 0-7) em zero
+				 // LE (Latch Enable) do registrador 74573 desabilitado (0)
+}
+
+void delay(unsigned int tempo) {
+        while (tempo) tempo-- ;
+}
+
+int main(void)
+{
+	inicGPIO();
+	int i, s;
+
+	for(;;){
+		for(i=0; i&lt;256; i++){
+			s = GPIOC_PDOR;  // lê o último valor escrito na porta
+			s = s &amp; 0xFFFFFF00;
+			s = s | i;
+			GPIOC_PDOR = s;  // altera apenas 8 bits 0-7 entradas 74573
+
+			GPIOC_PSOR = (1&lt;&lt;10); // pulsa LE (Latch Enable) do 74573, em 1 (set)
+			GPIOC_PCOR = (1&lt;&lt;10); // em 0 (clear)
+
+			delay(500000);
+		}
+	}
+}</pre>
+<p>
+Observe que todas as definições de endereços das portas do GPIO estão declaradas no arquivo <tt>MKL25Z4.h</tt> que é incluído pelo arquivo <tt>derivative.h</tt>
+</p><p>
+O trecho do arquivo MKL25Z4.h que diz respeito às declarações dos registradores da GPIO estão em @100.
+</p><p>
+Os 8 LEDs estão ligados pelo anodo às saídas do registrador 74HC573 conforme a figura abaixo. Os bits 0 a 7 da PortC (PTC0-PTC7) estão ligados na entrada do registrador e o bit PTC10 (PortC bit 10) está ligado no LE (Latch Enable) do 74HC573. (Atenção, apesar do LE no desenho abaixo estar escrito como ativo baixo, na realidade, ele é ativo alto, conforme sua descrição na figura seguinte). Note que como é o anodo que está ligado na saída do registrador pelos resistores, os LEDs acendem quando a saída do registrador estiver em nível alto.
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idax5fq9mykw/LED8RED.png">
+</p><p>
+Observe que o registrador 74HC573 é formado por 8 latches tipo D, sendo o LE (Latch Enable) é ativo alto. Note que o OE (Output Enable) está ligado no terra (GND), indicando que os tri-states da saída do 74HC573 estão sempre ativos.
+</p><p>
+Para colocar algum valor nos LEDs, basta colocar os dados na portC bits 0 a 7 e pulsar o LE, indo para 1 e depois para 0.
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idawygf3ruzr/74573.png">
+</p><p>

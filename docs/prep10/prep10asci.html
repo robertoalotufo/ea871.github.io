@@ -1,0 +1,39 @@
+<p>
+A função já feita, int2ascii10 (post @763)  tem o inconveniente de imprimir sempre o número suficiente de algarismos decimais. Para a aplicação do cronômetro, é desejado que o campo seja fixo, dois dígitos e para a experiência do buffer circular, na impressão do número de caracteres no buffer, é desejável que a impressão seja feita com campo fixo de 4 algarismos, utilizando zeros à esquerda quando necessário.
+</p><p>
+Assim, modificar a função para esta outra int2ascii10n, contendo um parâmetro adicional n. Quando n é igual a zero, o comportamento desta função é igual ao da função int2ascii10.
+</p><p>
+Vejamos alguns exemplos: número 324.com n=4, será impresso "<tt>0324</tt>"; se n= 0, será impresso "<tt>324</tt>" e se n for igual a 2, será impresso <tt>"**".</tt>
+<tt></tt>
+
+<tt>void int2ascii10n( int i, char *s, int n);</tt>
+<tt>// função recebe inteiro i e retorna uma string pronta para ser impressa do valor de i em decimal, opcionalmente com número de dígitos especificado. </tt>
+<tt>// Se o valor de i for negativo, o sinal '-' (menos) deve preceder o valor</tt>
+<tt>// i: variável inteira a ser convertida</tt>
+<tt>// s: string já pré-alocada, com um número maior que o número máximo de algarismos da conversão</tt>
+<tt>// n: Se valor for 0, converte para o menor número de algarismos decimais, sem zeros </tt>
+<tt>// à esquerda. Se diferente de zero, é o número fixo de algarismos decimais,</tt>
+<tt>// precedidos de zero, se necessário. Se o número não puder ser representado</tt>
+<tt>// por "n" digitos decimais, imprimir "n" asteriscos, dando a noção que houve</tt>
+<tt>// estouro no campo de impressão.</tt>
+
+</p>
+ Teste a sua função com o seguinte exemplo de programa main que mostra vários números no LCD:
+<pre>void main(void) {
+    int i;
+    char s[]="abcdefgh";
+    init_GPIO_LCD();
+    init_LCD();
+    print_LCD("teste");
+    for (i = - 10000; i &lt; 100000; i += 999) {
+	int2ascii10n(i,s,0);
+        print_LCD(s);
+	sendcmd_LCD(0x80,4);     // retorna cursor
+        delay10us(100000); // espera 1 seg
+
+	int2ascii10n(i,s,4);
+        print_LCD(s);
+	sendcmd_LCD(0x80,4);     // retorna cursor
+        delay10us(100000); // espera 1 seg
+}
+</pre>

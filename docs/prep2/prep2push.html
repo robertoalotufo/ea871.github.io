@@ -1,0 +1,31 @@
+Este é o programa para a leitura dos 3 botões de pressão da placa shield:
+
+<pre>// Observe que agora as macros de E/S já estão definidas no include
+#include "derivative.h" /* include peripheral declarations */
+
+/* Inicializa os GPIOs */
+void inicGPIO(void) {
+	SIM_SCGC5 = (1&lt;&lt;9); // Habilita PORTA
+
+	PORTA_PCR5  = 0x00000100; // Configura MUX para PORTA bit 5 aparecer nos pinos
+	PORTA_PCR12 = 0x00000100; // Configura MUX para PORTA bit 12 aparecer nos pinos
+	PORTA_PCR4  = 0x00000100; // Configura MUX para PORTA bit 4 aparecer nos pinos
+}
+
+int main(void)
+{
+	unsigned int a, pta4, pta5, pta12;
+
+	inicGPIO();
+
+	for(;;){
+		a = GPIOA_PDIR;       // Faz a leitura na PORTA (32 bits)
+		pta4  = a &amp; (1&lt;&lt;4);   // Verifica se bit 4 é 0 (botão apertado) ou 1 (botão normal)
+		pta5  = a &amp; (1&lt;&lt;5);   // Verifica se bit 5 é 0 (botão apertado)
+		pta12 = a &amp; (1&lt;&lt;12);  // Verifica se bit 12 é 0 (botão apertado)
+	}
+}</pre>
+<p>
+Os botões de pressão da placa Shield estão ligados nos bits da PortA conforme esquemático abaixo. Observe que quando o botão está solto, o valor lido no bit é alto e quando o botão é apertado, o valor lido é baixo.
+</p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idaysofa2wqz/BOTOES.png">

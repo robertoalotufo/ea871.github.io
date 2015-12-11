@@ -1,0 +1,164 @@
+<p>
+Trecho do arquivo com as definições das macros associadas à interface GPIO
+</p>
+<pre>/*!
+ * @file MKL25Z4.h
+ * @version 1.6
+ * @date 2013-04-05
+ * @brief Peripheral memory map for MKL25Z4
+ *
+ * This header file implements peripheral memory map for MKL25Z4 processor.
+ */
+
+
+/* ----------------------------------------------------------------------------
+   -- GPIO
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup GPIO_Peripheral GPIO
+ * @{
+ */
+
+/** GPIO - Peripheral register structure */
+typedef struct GPIO_MemMap {
+  uint32_t PDOR;                                   /**&lt; Port Data Output Register, offset: 0x0 */
+  uint32_t PSOR;                                   /**&lt; Port Set Output Register, offset: 0x4 */
+  uint32_t PCOR;                                   /**&lt; Port Clear Output Register, offset: 0x8 */
+  uint32_t PTOR;                                   /**&lt; Port Toggle Output Register, offset: 0xC */
+  uint32_t PDIR;                                   /**&lt; Port Data Input Register, offset: 0x10 */
+  uint32_t PDDR;                                   /**&lt; Port Data Direction Register, offset: 0x14 */
+} volatile *GPIO_MemMapPtr;
+
+/* ----------------------------------------------------------------------------
+   -- GPIO - Register accessor macros
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup GPIO_Register_Accessor_Macros GPIO - Register accessor macros
+ * @{
+ */
+
+
+/* GPIO - Register accessors */
+#define GPIO_PDOR_REG(base)                      ((base)-&gt;PDOR)
+#define GPIO_PSOR_REG(base)                      ((base)-&gt;PSOR)
+#define GPIO_PCOR_REG(base)                      ((base)-&gt;PCOR)
+#define GPIO_PTOR_REG(base)                      ((base)-&gt;PTOR)
+#define GPIO_PDIR_REG(base)                      ((base)-&gt;PDIR)
+#define GPIO_PDDR_REG(base)                      ((base)-&gt;PDDR)
+
+/*!
+ * @}
+ */ /* end of group GPIO_Register_Accessor_Macros */
+
+
+/* ----------------------------------------------------------------------------
+   -- GPIO Register Masks
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup GPIO_Register_Masks GPIO Register Masks
+ * @{
+ */
+
+/* PDOR Bit Fields */
+#define GPIO_PDOR_PDO_MASK                       0xFFFFFFFFu
+#define GPIO_PDOR_PDO_SHIFT                      0
+#define GPIO_PDOR_PDO(x)                         (((uint32_t)(((uint32_t)(x))&lt;&lt;GPIO_PDOR_PDO_SHIFT))&amp;GPIO_PDOR_PDO_MASK)
+/* PSOR Bit Fields */
+#define GPIO_PSOR_PTSO_MASK                      0xFFFFFFFFu
+#define GPIO_PSOR_PTSO_SHIFT                     0
+#define GPIO_PSOR_PTSO(x)                        (((uint32_t)(((uint32_t)(x))&lt;&lt;GPIO_PSOR_PTSO_SHIFT))&amp;GPIO_PSOR_PTSO_MASK)
+/* PCOR Bit Fields */
+#define GPIO_PCOR_PTCO_MASK                      0xFFFFFFFFu
+#define GPIO_PCOR_PTCO_SHIFT                     0
+#define GPIO_PCOR_PTCO(x)                        (((uint32_t)(((uint32_t)(x))&lt;&lt;GPIO_PCOR_PTCO_SHIFT))&amp;GPIO_PCOR_PTCO_MASK)
+/* PTOR Bit Fields */
+#define GPIO_PTOR_PTTO_MASK                      0xFFFFFFFFu
+#define GPIO_PTOR_PTTO_SHIFT                     0
+#define GPIO_PTOR_PTTO(x)                        (((uint32_t)(((uint32_t)(x))&lt;&lt;GPIO_PTOR_PTTO_SHIFT))&amp;GPIO_PTOR_PTTO_MASK)
+/* PDIR Bit Fields */
+#define GPIO_PDIR_PDI_MASK                       0xFFFFFFFFu
+#define GPIO_PDIR_PDI_SHIFT                      0
+#define GPIO_PDIR_PDI(x)                         (((uint32_t)(((uint32_t)(x))&lt;&lt;GPIO_PDIR_PDI_SHIFT))&amp;GPIO_PDIR_PDI_MASK)
+/* PDDR Bit Fields */
+#define GPIO_PDDR_PDD_MASK                       0xFFFFFFFFu
+#define GPIO_PDDR_PDD_SHIFT                      0
+#define GPIO_PDDR_PDD(x)                         (((uint32_t)(((uint32_t)(x))&lt;&lt;GPIO_PDDR_PDD_SHIFT))&amp;GPIO_PDDR_PDD_MASK)
+
+/*!
+ * @}
+ */ /* end of group GPIO_Register_Masks */
+
+
+/* GPIO - Peripheral instance base addresses */
+/** Peripheral PTA base pointer */
+#define PTA_BASE_PTR                             ((GPIO_MemMapPtr)0x400FF000u)
+/** Peripheral PTB base pointer */
+#define PTB_BASE_PTR                             ((GPIO_MemMapPtr)0x400FF040u)
+/** Peripheral PTC base pointer */
+#define PTC_BASE_PTR                             ((GPIO_MemMapPtr)0x400FF080u)
+/** Peripheral PTD base pointer */
+#define PTD_BASE_PTR                             ((GPIO_MemMapPtr)0x400FF0C0u)
+/** Peripheral PTE base pointer */
+#define PTE_BASE_PTR                             ((GPIO_MemMapPtr)0x400FF100u)
+/** Array initializer of GPIO peripheral base pointers */
+#define GPIO_BASE_PTRS                           { PTA_BASE_PTR, PTB_BASE_PTR, PTC_BASE_PTR, PTD_BASE_PTR, PTE_BASE_PTR }
+
+/* ----------------------------------------------------------------------------
+   -- GPIO - Register accessor macros
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup GPIO_Register_Accessor_Macros GPIO - Register accessor macros
+ * @{
+ */
+
+
+/* GPIO - Register instance definitions */
+/* PTA */
+#define GPIOA_PDOR                               GPIO_PDOR_REG(PTA_BASE_PTR)
+#define GPIOA_PSOR                               GPIO_PSOR_REG(PTA_BASE_PTR)
+#define GPIOA_PCOR                               GPIO_PCOR_REG(PTA_BASE_PTR)
+#define GPIOA_PTOR                               GPIO_PTOR_REG(PTA_BASE_PTR)
+#define GPIOA_PDIR                               GPIO_PDIR_REG(PTA_BASE_PTR)
+#define GPIOA_PDDR                               GPIO_PDDR_REG(PTA_BASE_PTR)
+/* PTB */
+#define GPIOB_PDOR                               GPIO_PDOR_REG(PTB_BASE_PTR)
+#define GPIOB_PSOR                               GPIO_PSOR_REG(PTB_BASE_PTR)
+#define GPIOB_PCOR                               GPIO_PCOR_REG(PTB_BASE_PTR)
+#define GPIOB_PTOR                               GPIO_PTOR_REG(PTB_BASE_PTR)
+#define GPIOB_PDIR                               GPIO_PDIR_REG(PTB_BASE_PTR)
+#define GPIOB_PDDR                               GPIO_PDDR_REG(PTB_BASE_PTR)
+/* PTC */
+#define GPIOC_PDOR                               GPIO_PDOR_REG(PTC_BASE_PTR)
+#define GPIOC_PSOR                               GPIO_PSOR_REG(PTC_BASE_PTR)
+#define GPIOC_PCOR                               GPIO_PCOR_REG(PTC_BASE_PTR)
+#define GPIOC_PTOR                               GPIO_PTOR_REG(PTC_BASE_PTR)
+#define GPIOC_PDIR                               GPIO_PDIR_REG(PTC_BASE_PTR)
+#define GPIOC_PDDR                               GPIO_PDDR_REG(PTC_BASE_PTR)
+/* PTD */
+#define GPIOD_PDOR                               GPIO_PDOR_REG(PTD_BASE_PTR)
+#define GPIOD_PSOR                               GPIO_PSOR_REG(PTD_BASE_PTR)
+#define GPIOD_PCOR                               GPIO_PCOR_REG(PTD_BASE_PTR)
+#define GPIOD_PTOR                               GPIO_PTOR_REG(PTD_BASE_PTR)
+#define GPIOD_PDIR                               GPIO_PDIR_REG(PTD_BASE_PTR)
+#define GPIOD_PDDR                               GPIO_PDDR_REG(PTD_BASE_PTR)
+/* PTE */
+#define GPIOE_PDOR                               GPIO_PDOR_REG(PTE_BASE_PTR)
+#define GPIOE_PSOR                               GPIO_PSOR_REG(PTE_BASE_PTR)
+#define GPIOE_PCOR                               GPIO_PCOR_REG(PTE_BASE_PTR)
+#define GPIOE_PTOR                               GPIO_PTOR_REG(PTE_BASE_PTR)
+#define GPIOE_PDIR                               GPIO_PDIR_REG(PTE_BASE_PTR)
+#define GPIOE_PDDR                               GPIO_PDDR_REG(PTE_BASE_PTR)
+
+/*!
+ * @}
+ */ /* end of group GPIO_Register_Accessor_Macros */
+
+
+/*!
+ * @}
+ */ /* end of group GPIO_Peripheral */
+</pre>

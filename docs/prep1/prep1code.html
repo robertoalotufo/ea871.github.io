@@ -1,0 +1,48 @@
+Coloque este trecho de código como "main.c":
+
+<pre>// Experiência 1 - EA871-2S2015 - Pisca LED Vermelho do LED RGB placa Freedom
+
+// LED Vermelho com catodo ligado em PTB18
+
+#define SIM_SCGC5   (*(unsigned int volatile *) 0x40048038) // Habilita as Portas do GPIO (Reg. SIM_SCGC5)
+#define PORTB_PCR18 (*(unsigned int volatile *) 0x4004A048) // MUX de PTB18 (Reg. PORTB_PCR18)
+#define GPIOB_PDDR  (*(unsigned int volatile *) 0x400FF054) // Data direction do PORTB (Reg. GPIOB_PDDR)
+#define GPIOB_PSOR  (*(unsigned int volatile *) 0x400FF044) // Set bit register do PORTB (Reg. GPIOB_PSOR)
+#define GPIOB_PCOR  (*(unsigned int volatile *) 0x400FF048) // Clear bit register do PORTB (Reg. GPIOB_PCOR)
+
+void delay( unsigned int i) {
+    while (i)
+        i--;
+}
+
+int main( void)
+{
+        SIM_SCGC5   = SIM_SCGC5   | (1&lt;&lt;10);    // Habilita clock GPIO do PORTB
+        PORTB_PCR18 = PORTB_PCR18 &amp; 0xFFFFF8FF; // Zera bits 10, 9 e 8 (MUX) de PTB18
+        PORTB_PCR18 = PORTB_PCR18 | 0x00000100; // Seta bit 8 do MUX de PTB18, assim os 3 bits de MUX serão 001
+        GPIOB_PDDR  = GPIOB_PDDR  | (1&lt;&lt;18);    // Seta pino 18 do PORTB como saída
+
+        for(;;) {
+	        GPIOB_PSOR = (1&lt;&lt;18); // Set bit 18, LED vermelho em PTB18 (apaga)
+	   	delay(500000);        // Espera um tempo
+	        GPIOB_PCOR = (1&lt;&lt;18); // Clear bit 18, LED vermelho em PTB18 (acende)
+	   	delay(500000);        // Espera um tempo
+	}
+}
+</pre>
+Perguntas para estudo e discussão associadas ao código acima:
+
+<ol>
+  <li>Em qual manual e página se encontram os endereços hexadecimais das portas de acesso ao hardware utilizado nas declarações #define?</li>
+  <li>Em qual manual e página se encontra a informação que o LED vermelho do LED RGB está ligado no bit 18 do PortB?</li>
+  <li>O que uma declaração #define cria?</li>
+  <li>É possível fazer o mesmo programa sem o #define? Qual é a vantagem de se utilizar o #define?</li>
+  <li>Quantos bits tem o tipo unsigned int na implementação do microcontrolador KL25?</li>
+  <li>O que significa o qualificador volatile e por que ele é utilizado?</li>
+  <li>O que significa a notação 0x em 0xFFFFF8FF por exemplo?</li>
+  <li>Em qual manual e em que página se encontram a definição dos registradores: SIM_SCGC5, PORTB_PCR18 e os demais?</li>
+  <li>O que faz o operador &amp; e qual sua diferença com o operador &amp;&amp;?</li>
+  <li>O que faz o operador | e qual sua diferença com o operador || ?</li>
+  <li>O que faz o operador &lt;&lt; ?</li>
+  <li>Qual é o valor de (1&lt;&lt;18) em hexadecimal de 32 bits?</li>
+</ol>

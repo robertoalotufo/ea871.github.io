@@ -1,0 +1,28 @@
+<p>
+O módulo TPM possui contador de 16 bits e 8 canais. Os canais do TPM podem ser configurados em 3 modos:
+</p><p>
+<ul><li>output compare - geração de onda quadrada</li><li>input capture - para medida de tempo entre eventos</li><li>PWM - visto na aula passada</li></ul>
+</p><p>
+Relembrando o diagrama de blocos do TPM:
+</p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i9yszf2xtxyx/TPMdiagram.png">
+<p>
+Observe que no modo Input Capture, o sinal do canal funciona agora como entrada e é possível fazer com que o valor do contador fique guardado no registrador CiV no instante do evento do sinal de entrada. Existe várias formas de programa do evento conforme a Tabela 31-34:
+</p>
+<ul><li>Captura na borda de subida</li><li>Captura na borda de descida</li><li>Captura na borda de subida ou de descida</li></ul>
+<p>
+Conforme seção 31.3.5, o evento gerado pelo sinal do canal do input capture salva o valor do contador no registrador CiV conforme o canal i. Observe que agora o CiV é um valor de leitura, enquanto que na experiência do PWM ele era um registrador para escrita.
+</p><p>
+Desta forma é possível medir o tempo entre dois eventos, lendo-se o valor CiV no instante em que o evento ocorre. Quando o evento ocorre, o flag CHF fica verdadeiro indicando que é o instante para ler o CiV. Apaga-se o CHF escrevendo-se um (clear) no registrador CnSC. Observe que é possível gerar interrupção neste evento, habilitando-se o bit CHIE.
+</p><p>
+Finalmente, é possível que entre 2 eventos, o contador tenha estourado e é preciso levar isso em conta para poder calcular exatamente o tempo entre dois eventos. É possível identificar o estouro do contador pelo flag TOF - Timer Overflow Flag, que também pode gerar uma interrupção, habilitando-se o bit TOIE - Timer Overflow Interrupt Enable.
+</p><p>
+Veja a figura a seguir para melhor entender a forma de medir tempo entre 2 eventos:
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/ia7icpz1xr5k/inputcapture_diagrama_tempo.jpg">
+</p><p>
+Qual é a equação do tempo t em função da:
+<ul><li>Período do clock de entrada</li><li>Divisor prescaler </li><li>Valor do MOD</li><li>Valor do C0V inicial</li><li>Valor do C0V final</li><li>N. de overflows (TOF)</li></ul>
+</p><p>
+Quais são os comandos para:
+<ul><li>do NVIC para habilitar a interrupção do TPM?</li><li>para habilitar as interrupções dos eventos T0F e CH0F do TPM?</li></ul>
+</p>
