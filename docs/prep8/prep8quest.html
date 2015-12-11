@@ -1,0 +1,18 @@
+
+<h3>SysTick - perguntas para estudo</h3>
+
+<ol><li>Qual é o vetor associado à interrupção SysTick?</li><li>Como este vetor é associado à função <b>void</b> <b>SysTick_Handler</b>(<b>void</b>) ?</li><li>Por que quando não se declara a função <b>void</b> <b>SysTick_Handler</b>(<b>void</b>) , não existe um erro de função não definida?</li><li>Qual é o índice do vetor de interrupção do SysTick?</li><li>Para que serve o arquivo kinetis_sysinit.c que está Startup_Code?</li><li>O que faz a declaração:void SysTick_Handler() __attribute__ ((weak, alias("Default_Handler")));</li></ol>
+
+
+<h3> NVIC - perguntas para estudo</h3>
+
+<ol><li>Quantos níveis de prioridade possui o KL25 (NVIC)</li><li>O que é a interrupção não mascarável?</li><li>O que é a Tabela 3-7 do manual do KL25?</li><li>Na tabela acima, qual é a diferença entre o core vectors e non-core vectors?</li></ol>
+
+As referências para o NVIC estão na seção 3.3.2 do manual do KL25.
+
+<h3> Tempo de impressão terminal serial e LCD. </h3>
+
+
+Quanto tempo demora para que o valor do cronômetro seja impresso no terminal serial? E quanto tempo demora para imprimir no LCD?
+
+Como estamos trabalhando com um cronômetro de centécimos de segundos, é importante sabermos quanto tempo demora para se imprimir o string do cronômetro no terminal serial a 19200 bps e quanto tempo demora para imprimir o valor do cronômetro no LCD. Desconsiderar os cálculos de conversão de inteiro para ASCII, supor que os strings já estão prontos para imprimir.

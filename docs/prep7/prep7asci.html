@@ -1,0 +1,40 @@
+Para que os valores de variáveis inteiras sejam mostradas no visor LCD ou no terminal serial, eles precisam ser convertidos em strings ASCII. Para imprimir um inteiro na representação decimal, o algoritmo mais intuitivo para encontrar os dígitos é fazer divisões sucessivas por 10, o primeiro resto é o dígito menos significativo. O tratamento do sinal negativo pode ser feito, primeiro verificando-se se o número é positivo ou negativo, se for negativo acrescentar o caractere '-' à frente do string, converter o número para positivo (lembrar que ele está representado em complemento de 2) e depois tratar normalmente a conversão da representação decimal. Se o número for positivo não há necessidade de incluir nenhum caractere adicional.
+
+Vejamos um exemplo: número 324.
+324 / 10 = 32 e resto 4
+32 / 10 = 3 e resto 2
+3 / 10 = 0 e resto 3
+Assim os algarismos são '3', '2', e '4'.
+
+Vejamos um exemplo de número negativo: - 324:
+como número é negativo, inclui '-' no string e - (-324) = 324,
+converte 324 normalmente, assim ficando: '-', '3', '2' e '4'.
+
+Uma dificuldade inerente é que neste algoritmo de resto da divisão, os algarismos são calculados do dígito menos significativo ao mais significativo, assim há necessidade de se saber de antemão quantos dígitos serão utilizados na representação final dos caracteres no string.
+
+Para se converter os valores de 0 a 9 em ASCII '0' a '9', uma forma simples é somar o código '0' aproveitando-se da propriedade que os códigos de '0' a '9' estão organizados de forma sequêncial na tabela ASCII.
+
+Não esquecer de colocar o valor zero no final do string, pois existe uma convenção em C que todo string é finalizado com o código '\0'.
+
+A sugestão de protótipo desta função é:
+
+<tt>void int2ascii10( int i, char *s);</tt>
+<tt>// função recebe inteiro i e retorna uma string pronta para ser impressa do valor de i em decimal. </tt>
+<tt>// Se o valor de i for negativo, o sinal '-' (menos) deve preceder o valor</tt>
+<tt>// i: variável inteira a ser convertida</tt>
+<tt>// s: string já pré-alocado, com um número maior que o número máximo de algarismos da conversão</tt>
+
+Teste a sua função com o seguinte exemplo de programa main que mostra vários números no LCD:
+
+<pre>void main(void) {
+    int n;
+    char *s;
+    for (n = - 10000; n &lt; 100000; n += 999) {
+	int2ascii10(n,s);
+        print_LCD(s);
+	sendcmd_LCD(0x80,4);     // retorna cursor
+        delay10us(100000); // espera 1 seg
+}
+</pre>
+Referências:
+<ul><li><a href="http://www.menie.org/georges/embedded/printf-stdarg.html" target="_blank">Small printf source code</a></li></ul>

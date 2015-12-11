@@ -1,0 +1,40 @@
+Na experiência do Lab. n. 8 - Interrupção SysTick e cronômetro, tivemos algumas questões que não foram bem resolvidas. Este mensagem visa esclarecer o experimento e apontar os principais erros conceituais que estão acontecendo nas soluções feitas. A ideia é ter a interrupção periódica de 10 ms sendo interrompida no SysTick e modo a podermos incrementar o número de centésimos de segundos do cronômetro. Inicialmente, existem duas questões importantes que não podem ser confundidas: 1) possibilidade de parar/continuar o cronômetro; 2) sincronismo para imprimir o valor do cronômetro
+
+<strong>1. Parar/continuar o cronômetro, existem duas opções:</strong>
+<strong></strong>
+<strong></strong>
+<ol><li>Para a interrupção do SysTick, desabilitando o SysTick. Esta solução funciona, porém tem a desvantagem de que nas outras experiências, como a de leitura de chaves, a interrupção do SysTick é importante para amostrar os valores dos botões de pressão.</li><li>Criar uma variável para parar/continuar a contagem do cent_local: <tt>running. Se verdadeira, o cent_local é incrementado, se falso, não é.</tt></li></ol>
+<strong>2. Sincronismo para imprimir o valor do cronômetro. </strong>
+
+O cuidado com esta solução é quando no programa principal se escrever o seguinte código:
+
+<pre>c = cent_global%100; // calcula os valores de segundo, minuto e centésimo
+s = (cent_global/100)%60;
+m = ((cent_global/100)/60)%60;</pre>
+Neste código acima, se o SysTick interromper entre estas instruções, o valor de c, s e m podem ficar errados e cronômetro por exemplo passar de 00:01:99 para 00:02:99. Para evitar isso, existem duas soluções:
+
+<ol><li>usar a variável <tt>rp_global</tt>. No programa principal, apenas entra-se neste código de impressão, se <tt>rp_global</tt> for 1 e no final das 3 instruções acima, fazer <tt>rp_global = 0</tt> (falso):
+
+<pre>if(rp_global) { // SysTick está com valores atualizados
+    c = cent_global%100; // calcula os valores de segundo, minuto e centésimo
+    s = (cent_global/100)%60;
+    m = ((cent_global/100)/60)%60;
+    rp_global=0; // Permite que cent_global seja modificado no SysTick
+</pre>
+No handler do SysTick, se <tt>rp_global</tt> for 0, então copia-se <tt>cent_local</tt> para <tt>cent_global</tt> e depois faz <tt>rp_global</tt> = 1. Observe que é importante que <tt>cent_local</tt> fique contando sempre, independente do valor de <tt>rp_global</tt>, que é usado apenas para sincronismo para impressão. cent_local deve ser parado ou não apenas em função da variável <tt>running</tt>, se for utilizado esta facilidade do cronômetro:
+<pre>if ( !rp_global) { // Principal não está usando cent_global
+    cent_global = cent_local; // posso atualizar cent_global
+    rp_global = 1; // indica ao programa principal que cent_global pode ser usado
+}
+</pre>
+</li><li>Utilizar uma variável local no programa principal, evitando assim totalmente a necessidade da variável <tt>rp_global</tt>:
+
+<pre>cent = cent_global; // Copia para variável local
+c = cent % 100; // calcula os valores de segundo, minuto e centésimo
+s = (cent/100) % 60;
+m = ((cent/100) / 60) % 60;
+</pre>
+Desta forma não vai existir o risco dos valores <tt>c</tt>, <tt>s</tt> e <tt>m</tt> terem uma configuração errônea, pois se houver uma interrupção do SysTick neste trecho, os valores de c, s e m serão calculados a partir da variável local <tt>cent</tt>. Nesta solução, não haveria portanto necessidade das variáveis <tt>rp_global</tt> e o <tt>cent_local</tt> seria agora desnecessário.</li></ol>
+
+
+Baseado nestas explicações, peço que vocês analisem os seus programas e façam as correções e simplificações necessárias. Observe que não há necessidade de parar a impressão do cronômetro, ele pode ser impresso continuamente, mesmo se o valor do cronômetro, estiver parado, os displays do LCD e o terminal podem ficar sempre sendo impressos. Isto vale para as experiências 8 e 9.

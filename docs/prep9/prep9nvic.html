@@ -1,0 +1,19 @@
+<p>
+O KL25Z possui um controlador de interrupções denominado NVIC - Nested Vectorized Interrupt Controller.
+</p><p>
+O NVIC suporta 32 interrupções de 0 a 31, que são as interrupções vetorizadas denominadas não core (Ver Tabela 3-7 do manual do KL25).
+</p><p>
+Cada uma dessas interrupções está associada a um periférico conforme pode-se verificar nesta tabela. Cada uma das 32 interrupções podem ser habilitadas e desabilitadas e cada uma delas possui 4 níveis de prioridade, de 0 a 3 (2 bits).
+</p><p>
+A habilitação e desabilitação de cada interrupção é feita pelos registradores NVIC_ISER (habilita, set) e NVIC_ICER (desabilita, clear).
+</p><p>
+Como são registradores de 32 bits, cada bit está associado a uma interrupção.
+</p><p>
+Já para configurar a prioridade de cada interrupção, são utilizados 8 registradores NVIC_IPR0 a NVIC_IPR7 onde cada registrador pode configurar 4 interrupções. Para tratar a UART0 não será necessário configurar a sua prioridade, vamos usar a default.
+</p><p>
+Além de habilitar a interrupção no NVIC, há necessidade de configurar e habilitar a fonte de geração de interrupção na UART0. A UART0 pode gerar interrupção para até 10 eventos classificados em TX, RX e Erros. Iremos trabalhar inicialmente apenas com uma fonte de interrupção, que é a de recepção de dados, RIE - Receiver Interrupt Enable. Quando o RIE é habilitado, a UART0 está habilitada e o vetor de interrupção da UART0 no NVIC está habilitado, a subrotina  UART0_IRQHandler é chamada indicando que a UART0 recebeu um caractere. Esta subrotina deverá ler o caractere da UART0_D sem necessidade de testar o flag RDBF. A simples leitura da UART0_D fará com que o pedido de interrupção seja retirado. Se mais de uma fonte de interrupção na UART0 for habilitada, por exemplo recepção e transmissão, isto significa que a UART0_IRQHandler deverá testar os flags para poder identificar qual foi a causa da interrupção, se foi de recepção, de transmissão ou ambos. Isto será exercitado em experiência futura.
+</p><p>
+Para tratar a interrupção por recepção é recomendado utilizar duas variáveis de estado, ambas globais, uma que vai indicar se existe novo caractere no buffer (RX_full) e uma que é o buffer (RX_data) onde o dado é armazenado.   Quando uma interrupção ocorre, RX_full fica verdadeiro e o dado é colocado em RX_data. Quando a subrotina getchar() é chamada, ela verifica RX_full e se for falsa, ela retorna 0 e se RX_full estiver verdadeiro, retorna RX_data e ao mesmo tempo faz RX_full como falso para indicar que o dado foi consumido.
+</p><p>
+Fazendo desta forma, no programa principal é possível esperar a chegada de um caractere chamando getchar() até que ela retorne valor diferente de zero.
+</p>

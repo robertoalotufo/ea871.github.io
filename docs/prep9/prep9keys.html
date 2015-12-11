@@ -1,0 +1,10 @@
+<p>
+O SysTick deve ser configurado para gerar uma interrupção a cada ms. É um bom tempo para se fazer a varredura dos botões de pressão e verificar se houve alguma mudança.
+O <strong>SysTick_Handler()</strong> deve ser programado para tratar uma máquina de estado responsável por fazer a leitura dos botões de pressão, 1, 2 e 3.
+</p>
+<p>
+É recomendado utilizar 2 variáveis de estado por botão, uma variável interna e outra externa. As variáveis internas devem ser declaradas como estáticas (isto é, elas são persistentes, porém são visíveis apenas no escopo da <strong>SysTick_Handler</strong>. São elas <strong>key1, key2, key3</strong>. Estas variáveis guardam o estado de cada chave no instante anterior. Elas serão comparadas com o estado atual da chave e se anterior botão estava solto e agora está apertado, isto é uma indicação que o botão foi apertado. Isto deve ser sinalizado nas variáveis de estado <strong>key1_full, key2_full, key3_full,</strong> indicando que a chave foi apertada.
+</p>
+<p>
+A função <strong>int getkey()</strong> deve ser tal que, caso nenhum botão tenha sido apertado, ela retorne 0. Caso alguma das variáveis key1_full, key2_full, key3_full estiver verdadeira, a função getkey() retorna 1, 2 ou 3, dependendo se o botão 1, 2 ou 3 foi o apertado. Ao mesmo tempo, a função getkey() coloca a variável keyn_full em falso, indicando que ela foi consumida.
+</p>
