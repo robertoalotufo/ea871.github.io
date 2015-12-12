@@ -1,0 +1,11 @@
+<p>
+INSTALAÇÃO DO IDE, DRIVERS E PLUGIN
+</p><p>
+O <a target="_blank" href="http://www.freescale.com/tools/embedded-software-and-tools/software-development-tools/codewarrior-development-tools/codewarrior-development-suites/codewarrior-development-suite-special:CW-SUITE-SPECIAL?&amp;tab=Design_Tools_Tab">CodeWarrior 10.6</a> está disponível para download. A versão gratuita (Special Edition) tem total funcionalidade, e a única limitação é o tamanho do código objeto em projetos feitos em C ou C++ (para os processadores Kinetis L é de 64kB). Para projetos totalmente em Assembly, não há limitação. Para baixar o instalador online(700MB), use o seguinte link: <a href="http://cache.freescale.com/lgfiles/devsuites/MCU/CW_MCU_v10.6_SE.exe?fpsp=1&amp;WT_TYPE=IDE%20-%20Debug,%20Compile%20and%20Build%20Tools&amp;WT_VENDOR=FREESCALE&amp;WT_FILE_FORMAT=exe&amp;WT_ASSET=Downloads&amp;fileExt=.exe" target="_blank">CW 10.6 </a>
+</p><p>
+Este instalador exige conexão à internet, para baixar os arquivos de suporte dos processadores.Em um momento da instalação, o usuário deve selecionar as famílias de componentes a serem suportadas. Deve- se selecionar a família Kinetis ARM, para suporte à placa do curso.
+</p><p>
+Após a instalação do CodeWarrior, deve- se instalar o pacote de drivers (arquivo <a target="_blank" href="https://d1b10bmlvqabco.cloudfront.net/attach/hzle5unh7uc46l/hzled494xf95tw/i0bmcu1r737v/PEDrivers_install.exe">PEDrivers_install.exe</a>) para acesso ao OpenSDA da placa, antesde se plugar a placa ao computador. Após a instalação, pode- se plugar a placa e aguardar o reconhecimento dos drivers. Finalmente, para se utilizar um console ligado à porta serial dentro da perspectiva de debug do CodeWarrior, é necessário instalar um plugin : <a href="https://d1b10bmlvqabco.cloudfront.net/attach/hzle5unh7uc46l/hzled494xf95tw/hzwzz54gbm1d/RXTXUpdatesiteI200710161945.zip" target="_blank">RXTXUpdatesiteI200710161945.zip</a>
+</p><p>
+Para instalar o plugin, deve- se inicialmente descompactar o arquivo. Depois, abra o CodeWarrior e selecionena barra de menu, opção Help - Install New Software, e na janela que se abre clique no botão Add . Clique no botão Local, e navegue até a pasta criada. Depois é só abrir a árvore do TXRX e selecionar APENAS o runtime (desmarque oSDK). Depois é só prosseguir com a instalação.
+</p>

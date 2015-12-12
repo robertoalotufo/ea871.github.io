@@ -1,0 +1,73 @@
+<p>
+O objetivo deste tutorial é fornecer as noções básicas para que o aluno possa criar um novo projeto, fazer a compilação cruzada<i> </i>do programa main.c e executá-lo na placa. São 8 passos:
+</p><p>
+1. Criar um novo projeto
+</p><p>
+2. Dar o nome ao projeto
+</p><p>
+3. Selecionar o microcontrolador MKL25Z128
+</p><p>
+4. Selecionar a interface openSDA
+</p><p>
+5. Copiar o arquivo main.c do Piazza
+</p><p>
+6. Compilar o programa main.c
+</p><p>
+7. Ligar e carregar o programa no microcontrolador
+</p><p>
+8. Executar e testar o programa
+</p><p>
+A seguir são dados os detalhes de cada passo:
+</p><p>
+<strong>1. Criar um novo projeto do tipo <i>Bareboard</i>: </strong>
+</p><p>
+Selecione o menu <tt>File &gt; New &gt; Bareboard Project</tt>
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/icuwrgpwbbjd/cw_firstproject_1.png">
+</p><p>
+
+ <strong>2. Escolher um nome para o projeto: </strong>
+</p><p>
+Escolha um nome sugestivo e sem espaços ou pontuações como por exemplo: <tt>aula1, piscaled</tt>, etc.
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/icuwsjswxlin/cw_firstproject_2.png">
+</p><p>
+
+<strong>3. Selecionar a placa que será o alvo do projeto. </strong>
+</p><p>
+Neste curso, será utilizada a FRDM-KL25Z com 128kb de FLASH: código MKL25Z128
+</p><p>
+<strong>Dica</strong>: uma forma rápida de procurar é preencher no campo de busca <tt>type filter text</tt>
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/icuwvwwup43p/cw_firstproject_3.png">
+</p><p>
+<strong>4. Selecionar qual será a interface entre a placa e o CodeWarrior:</strong>
+</p><p>
+Deve ser selecionada a opção <i>openSDA</i>.
+</p><p>
+Para o propósito deste curso, o usuário pode finalizar a criação do projeto nesta etapa (não é necessário seguir para as próximas janelas):
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/icuwzj3u84jz/cw_firstproject_4.png">
+</p><p>
+Neste momento o CodeWarrior cria o seu projeto e apresenta a sua tela principal.
+</p><p>
+<strong>5. Copiar o conteúdo do main.c</strong>
+</p><p>
+Na janela <em>CodeWarrior Project</em> (marcado em <strong>preto</strong> na figura abaixo)<em> </em>irá aparecer o projeto criado e dentro dele tem uma pasta <em>Sources </em>contido um arquivo <tt>main.c</tt> já criado. Recorte o programa desejado (de acender LED vermelho) do Piazza e cole no arquivo <tt>main.c</tt>, apagando todo o seu conteúdo prévio.
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/icux6x83uexd/cw_firstproject_5.png">
+</p><p>
+<strong>6. Compilar o main.c</strong>
+</p><p>
+O programa main.c pode ser compilado tanto selecionando o botão do martelo (em azul na figura acima) ou selecionando o menu XXXXX.
+</p><p>
+<strong>7. Ligar e carregar no microcontrolador</strong>
+</p><p>
+O programa main precisa agora ser ligado com as demais bibliotecas e carregado via o openSDA para o microcontrolador. Isto é feito pelo botão assinalado em vermelho na figura acima.
+</p><p>
+<strong>8. Executar e testar o programa</strong>
+</p><p>
+A figura abaixo representa a interface de depuração, que é aberta automaticamente. Nela, você irá encontrar o código em linguagem de montagem (em <strong>vermelho</strong>), uma pequena janela que permite a visualização fácil das variáveis, registradores, <i>breakpoints </i>e conteúdo da memória (em <b>preto</b>). Os três botões destacados em <b>azul </b>são responsáveis por iniciar, pausar e terminar a execução do programa, respectivamente.
+</p><p>
+<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/icuxoeoytw1s/cw_firstproject_6.png">
+</p>

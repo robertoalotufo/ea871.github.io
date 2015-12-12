@@ -1,0 +1,35 @@
+<p>
+Um programa deve ter uma boa legibilidade e tanto os nomes das variáveis como os comentários são importantes para melhorar a legibilidade de um programa.
+</p><p>
+É comum ver comentários do tipo:
+</p>
+<pre>flag = 1; // faz flag igual a 1
+</pre>
+
+<p>
+Este tipo de comentário, além de ser inútil, diminui a legibilidade do programa.
+</p><p>
+Veja a diferença:
+</p>
+<pre>lcd_pronto = 1;
+</pre>
+<p>
+Observe que na instrução acima, já fica subentendido que o LCD está pronto, não há nem necessidade de colocar comentário.
+</p><p>
+Vejamos outro exemplo, utilizado na solução do cronômetro:
+</p>
+<pre>if (rp_global) { // Se rp_global for verdadeiro
+    c = cent_global%100; // calcula os valores de segundo, minuto e centésimo
+    s = (cent_global/100)%60;
+    m = ((cent_global/100)/60)%60;
+    rp_global=0; // Faz rp_global igual a zero
+</pre>
+<p>
+Veja a diferença:
+</p>
+<pre>if (rp_global) { // SysTick está com valores atualizados
+    c = cent_global%100; // calcula os valores de segundo, minuto e centésimo
+    s = (cent_global/100)%60;
+    m = ((cent_global/100)/60)%60;
+    rp_global=0; // Permite que cent_global seja modificado no SysTick
+</pre>

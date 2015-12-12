@@ -3,6 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>EA871 2s2015</title>
+  <link rel="shortcut icon" href="http://www.unicamp.br/unicamp/sites/default/files/favicon_3.ico" type="image/vnd.microsoft.icon" />
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <link rel="stylesheet" href="static/bootstrap.min.css">
   <link rel="stylesheet" href="static/bootstrap-dialog.min.css">
@@ -15,6 +16,15 @@
   <link rel="stylesheet" href="static/style.css">
   <script>
   $(function() {
+    $('#home').load("docs/home.html");
+    $('#ref01').load("docs/ref/calendar.html");
+    $('#ref02').load("docs/ref/aval.html");
+    $('#ref03').load("docs/ref/installcw.html");
+    $('#ref04').load("docs/ref/comments.html");
+    $('#ref05').load("docs/ref/manuals.html");
+    $('#ref06').load("docs/ref/mcu.html");
+    $('#ref07').load("docs/ref/tutorialcw.html");
+    $("#ref08").load("docs/ref/debug.html");
     $("#rot1").load("docs/prep1/rot1.html");
     $("#prep11").load("docs/prep1/prep1code.html");
     $("#rot2").load("docs/prep2/rot2.html");
@@ -22,7 +32,6 @@
     $("#prep22").load("docs/prep2/prep2leds.html");
     $("#prep23").load("docs/prep2/prep2macro.html");
     $("#prep24").load("docs/prep2/prep2gpio.html");
-    $("#prep25").load("docs/prep2/prep2debug.html");
     $("#rot3").load("docs/prep3/rot3.html");
     $("#prep31").load("docs/prep3/prep3arm.html");
     $("#prep32").load("docs/prep3/prep3asm.html");
@@ -57,7 +66,7 @@
     $("#prep121").load("docs/prep12/prep12input.html");
     $("#rot13").load("docs/prep13/rot13.html");
     $("#prep131").load("docs/prep13/prep13adc.html");
-    $("#rotproj").load("docs/rotproj.html");
+    $("#rotproj").load("docs/proj/rotproj.html");
   });
   </script>
 </head>
@@ -66,6 +75,28 @@
   <div class = "container-fluid" style="background-color:whitesmoke;">
     <nav class = "col-sm-2">
       <div class="panel-group" id="accordion">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse0">Referências</a>
+            </h4>
+          </div>
+          <div id="collapse0" class="panel-collapse collapse">
+            <ul class="list-group">
+              <a class = "list-group-item" data-toggle="pill" href="#viewhome">Introdução</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view01">Calendário</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view02">Avaliação</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view06">Microcontrolador</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view05">Manuais</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view03">Instalar Code Warrior</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view07">Tutorial Code Warrior</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view08">Debug Code Warrior</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view04">Comentários nos programas</a>
+            </ul>
+          </div>
+        </div>
+
 
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -94,7 +125,6 @@
               <a class = "list-group-item" data-toggle="pill" href="#view21">Programa Push Buttons</a>
               <a class = "list-group-item" data-toggle="pill" href="#view23">Macros GPIO</a>
               <a class = "list-group-item" data-toggle="pill" href="#view24">Programação com GPIO</a>
-              <a class = "list-group-item" data-toggle="pill" href="#view25">Tutorial debug</a>
             </ul>
           </div>
         </div>
@@ -287,9 +317,67 @@
       </div>
     </nav>
 
-
     <div class = "col-sm-9" style="background-color:;">
       <div class="tab-content">
+
+        <div id="viewhome" class="tab-pane active">
+          <div class = "page-header">
+            <h2>EA871 - Laboratório de Programação Básica de Sistemas Digitais</h2>
+          </div>
+          <div id="home"></div>
+        </div>
+
+
+        <div id="view01" class="tab-pane">
+          <div class = "page-header">
+            <h2>Programa do Curso - Calendário</h2>
+          </div>
+          <div id="ref01"></div>
+        </div>
+        <div id="view02" class="tab-pane">
+          <div class = "page-header">
+            <h2>Critério de Avaliação</h2>
+          </div>
+          <div id="ref02"></div>
+        </div>
+        <div id="view03" class="tab-pane">
+          <div class = "page-header">
+            <h2>Instalação do Code Warrior</h2>
+          </div>
+          <div id="ref03"></div>
+        </div>
+        <div id="view04" class="tab-pane">
+          <div class = "page-header">
+            <h2>Orientação de comentários</h2>
+          </div>
+          <div id="ref04"></div>
+        </div>
+        <div id="view05" class="tab-pane">
+          <div class = "page-header">
+            <h2>Manuais e Referências</h2>
+          </div>
+          <div id="ref05"></div>
+        </div>
+        <div id="view06" class="tab-pane">
+          <div class = "page-header">
+            <h2>Shield, Freedom, MCU, Cortex M0+</h2>
+          </div>
+          <div id="ref06"></div>
+        </div>
+        <div id="view07" class="tab-pane">
+          <div class = "page-header">
+            <h2>CodeWarrior - Como executar o seu primeiro programa</h2>
+          </div>
+          <div id="ref07"></div>
+        </div>
+        <div id="view08" class="tab-pane">
+          <div class = "page-header">
+            <h2>Tutorial para depuração com breakpoints e monitoramento de variáveis e memória</h2>
+          </div>
+          <div id = "ref08"></div>
+        </div>
+
+
         <div id="view1" class="tab-pane">
           <div class = "page-header">
             <h2>Roteiro 1 - Introdução, programa de piscar LEDs Verde e Vermelho</h2>
@@ -332,12 +420,6 @@
             <h2> GPIO - Princípios e programação </h2>
           </div>
           <div id = "prep24"></div>
-        </div>
-        <div id="view25" class="tab-pane">
-          <div class = "page-header">
-            <h2>Tutorial para depuração com breakpoints e monitoramento de variáveis e memória</h2>
-          </div>
-          <div id = "prep25"></div>
         </div>
 
         <div id="view3" class="tab-pane">
