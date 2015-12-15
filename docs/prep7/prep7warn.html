@@ -1,7 +1,9 @@
+<p>
 Um dos erros muito comum em C e que é geralmente muito difícil de encontrar e pode trazer resultados intermitentes e inesperados é o acesso de escrita em posições fora do vetor ou do string.
-
+</p><p>
 Por exemplo, suponha que você declare um vetor com 10 posições, int v[10] e no seu laço, você faz contador for(i=1;i&lt;=10;i++) v[i]=0; Veja que erroneamente, você escreveu no elemento v[10] que não existe. A linguagem C permite fazer isto sem apontar qualquer erro. O efeito colateral que isto vai dar é que o seu programa vai zerar uma variável ou parte de uma variável que esteja declarada na posição v[10].
-
+</p><p>
 No programa desta semana, a rotina de conversão de inteiro faz um varredura no string e pode ser que sua função invada também regiões além do string, dependendo do valor do inteiro a ser convertido.
-
+</p><p>
 Todo o cuidado é pouco para evitar este tipo de erro: uso cauteloso dos índices e apontadores. Clareza no tratamento dos índices dos vetores lembrando que outros poderão dar manutenção no seu código ou reutilizar suas funções para outras finalidades.
+</p>

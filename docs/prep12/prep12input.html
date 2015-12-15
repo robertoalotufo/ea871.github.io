@@ -5,7 +5,7 @@ O módulo TPM possui contador de 16 bits e 8 canais. Os canais do TPM podem ser 
 </p><p>
 Relembrando o diagrama de blocos do TPM:
 </p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i9yszf2xtxyx/TPMdiagram.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i9yszf2xtxyx/TPMdiagram.png">
 <p>
 Observe que no modo Input Capture, o sinal do canal funciona agora como entrada e é possível fazer com que o valor do contador fique guardado no registrador CiV no instante do evento do sinal de entrada. Existe várias formas de programa do evento conforme a Tabela 31-34:
 </p>
@@ -18,7 +18,7 @@ Desta forma é possível medir o tempo entre dois eventos, lendo-se o valor CiV 
 Finalmente, é possível que entre 2 eventos, o contador tenha estourado e é preciso levar isso em conta para poder calcular exatamente o tempo entre dois eventos. É possível identificar o estouro do contador pelo flag TOF - Timer Overflow Flag, que também pode gerar uma interrupção, habilitando-se o bit TOIE - Timer Overflow Interrupt Enable.
 </p><p>
 Veja a figura a seguir para melhor entender a forma de medir tempo entre 2 eventos:
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/ia7icpz1xr5k/inputcapture_diagrama_tempo.jpg">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/ia7icpz1xr5k/inputcapture_diagrama_tempo.jpg">
 </p><p>
 Qual é a equação do tempo t em função da:
 <ul><li>Período do clock de entrada</li><li>Divisor prescaler </li><li>Valor do MOD</li><li>Valor do C0V inicial</li><li>Valor do C0V final</li><li>N. de overflows (TOF)</li></ul>

@@ -1,33 +1,36 @@
+<p>
 A descrição da UART está no Cap. 39 do manual da KL25. Ela é bastante versável e complexa. Iremos utilizar apenas os recursos básicos desta interface.
-
+</p><p>
 A inicialização básica da UART0 é inicialmente similar à inicialização das portas do GPIO: há necessidade de habilitar o clock da UART0 e em seguida configurar o MUX.
-
+</p><p>
 <strong>1. Habilitação da UART0</strong>
-
+</p><p>
 A habilitação do clock da UART0 é feita pelo registrador SIM_SCGC4.
-
+</p><p>
 <strong>2. Configuração do MUX</strong>
-
+</p><p>
 O microcontrolador KL25 possui 3 interfaces de comunicação serial assíncronas: UART0, UART1 e UART2. Iremos trabalhar com a UART0 cujos pinos de transmissão TX e recepção RX estão ligados nos pinos PTA1 e PTA2 conforme descrito no manual da placa Freedom:
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i8azbs9xfoig/Serial_UART0_PTA1PTA0.png">
+</p><p></p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i8azbs9xfoig/Serial_UART0_PTA1PTA0.png">
+</p><p>
 Assim, há necessidade de configurar o MUX para que os sinais de RX e TX da UART0 fiquem associados aos pinos PTA1 e PTA2. A tabela das configurações dos pinos está no Cap. 10.3.1 do manual do KL25.
-
+</p><p>
 <strong>3. Configuração do baud-rate</strong>
-
+</p><p>
 O próximo passo é configurar o baud-rate para 19.200. Iremos utilizar como fonte do clock para a UART0 o sinal
 MCGFLLCLK que opera na frequência de 20.9 MHz. O registrador para configurar esta seleção de clock é o SIM_SOPT2.
-
+</p><p>
 O divisor para conseguir transformar o clock de 20.9 MHz para 19.200 deve ser configurado nos registradores UART0_BDH e UART0_BDL. No cálculo do fator de divisão do baud-rate, existe o fator OSR+1 (Over Sampling Ratio). Iremos utilizar o valor OSR default que é 0xF que indica um fator de oversampling de 16. Este oversampling é importante para o transmissor poder sincronizar com o start bit. É necessário um clock de velocidade maior que a taxa de baud-rate para que o receptor se sincronize com maior precisão com o start bit. O OSR é configurado no registrador UART0_C4, porém não iremos alterá-lo e sim utilizar o seu valor default de 15+1=16.
-
+</p><p>
 Figura que ajuda a entender o fator de oversampling. Se o oversampling for de 16, a largura do pulso que faz a amostragem do bit é de 1/16 da duração de um bit. A precisão da amostragem será maior quanto maior o fator de oversampling.
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/ieblhp3zuo2g/uartsignal_sample.png">
-
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/ieblhp3zuo2g/uartsignal_sample.png">
+</p><p>
 <strong>4. Habilitação do transmissor e receptor</strong>
-
+</p><p>
 Finalmente a UART0 deve ser habilitada tanto para transmitir TX e receber RX através do registrador UART0_C2.
-
+</p><p>
 Lembrar que para transmitir e receber da UART0 há necessidade de testar os flags TDRE e RDRF conforme explicado em @758.
-
+</p><p>
 Vale chamar a atenção que muitos registradores da UART0 são de 8 bits e não 32 bits como as portas do GPIO, isto aparece refletido nas definições das macros de acesso a UART0 que indicam que o tipo de dado é 8 bits sem sinal (uint8).
+</p>

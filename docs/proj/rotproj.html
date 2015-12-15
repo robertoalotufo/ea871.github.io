@@ -1,33 +1,43 @@
+<p>
 <strong>Objetivos</strong>:
+</p>
 <ul><li>Desenvolver um programa envolvendo a maioria dos conceitos aprendidos durante o curso ou novo conceito ainda não visto</li><li>Lidar com a complexidade de um programa com muitos eventos, várias interrupções ocorrendo</li><li>Trabalhar em equipe, com participação de 2 alunos por grupo</li></ul>
-
+<p>
 <strong>Teste</strong>: <a href="http://goo.gl/forms/h2GPHmb2Hn" target="_blank">Turma S</a>; <a href="http://goo.gl/forms/1H63QwjTx9" target="_blank">Turma T</a>; <a href="http://goo.gl/forms/wZEO6ioaTk" target="_blank">Turma E</a>; <a href="http://goo.gl/forms/7BpTDsyqJ0" target="_blank">Turma M</a>; <a href="http://goo.gl/forms/lw66sNTNDj" target="_blank">Turma U</a>; <a href="http://goo.gl/forms/eZosSI1dUQ" target="_blank">TurmaW</a>
-
+</p><p>
 <strong>Recomendações:</strong>
-
+</p><p>
 O projeto final será único e serão utilizadas até 2 aulas para a sua confecção. Existem dois folders para a entrega do projeto: proj1 é para entregar o desenvolvimento do projeto após uma semana de trabalho e proj2 é para entregar a versão final do projeto.
+</p><p>
 <strong>O projeto final deve ser entregue, não apenas pelo programa e feita a demonstração para o professor, mas também é necessário entregar um relatório explicando o que é o projeto, como ele foi resolvido e os principais destaques sobre o funcionamento do programa, com especial atenção às rotinas de tratamento de interrupção.</strong>
+</p><p>
 Os alunos podem escolher  um projeto diferente do apresentado aqui, porém deve incluir o estudo e desenvolvimento utilizando um conceito ainda não visto no curso. As sugestões são:
+</p><p>
 <ul><li>Cap. 15 - Acordar do modo baixo consumo</li><li>Cap. 22 e 23 - Acesso Direto à Memória</li><li>Cap. 30 - Conversor DA</li><li>Cap. 38 - Interface I2C - comunicação com acelerômetro</li><li>Cap. 42 - Sensor sensível ao toque</li></ul>
-
+</p><p>
 A proposta de um projeto deve ser aprovada pela professor.
-
+</p><p>
 <strong>Projeto proposto: Sistema de "chat" entre dois microcontroladores.</strong>
-
+</p><p>
 Utilizar a segunda interface serial UART2 com seus sinais RX, TX e terra disponíveis na placa shield para interconectar dois microcontroladores.
+</p><p>
 Utilizar a interface serial UART0 como terminal para teclar as mensagens, a visualização no terminal pode ser utilizada para mostrar alguma informação a critério do grupo.
+</p><p>
 O display LCD deve ser utilizado para mostrar na primeira linha o que o colega está digitando e mostrar na segunda linha o que você está digitando. Utilizar o efeito de rolagem nestas linhas para que as mensagens sejam contínuas no display.
+</p><p>
 Procurar fazer um esquema de sinalização de reconhecimento de transmissão e recepção de mensagem parecido com o do whatsapp. Se o cabo não estiver ligado ou se o outro microcontrolador não estiver funcionando, a mensagem não poderá ser transmitida. Quando o cabo for reconectado ou o microcontrolador for ligado, a mensagem deve então ser transmitida.
+</p><p>
 As duas portas seriais devem funcionar por interrupção tanto de entrada (RX) como de saída (TX) assim como também a interrupção do Systick. Mostrar cronômetro junto e dar alguma função aos botões de pressão também é recomendável.
-
+</p><p>
 Variações sobre este enunciado são permitidas assim como novas formas de interação entre os dois microcontroladores.
-
+</p><p>
 Haverá uma primeira nota pelo que for entregue até a próxima aula e uma segunda nota até uma semana após a aula do projeto II. A nota do projeto será a média entre as duas notas. É possível entregar o projeto em qualquer momento antes destas datas.
-
+</p><p>
 O que é esperado como entrega para a próxima aula (entregar no folder "<strong>proj1</strong>":
-
+</p><p>
 <ul><li>Uma descrição funcional do projeto proposto</li><li>Uma implementação bem simplificada de alguma parte crítica do projeto</li></ul>
-
+</p><p>
 Recomendações:
-
+</p><p>
 Uma dos pontos principais que auxiliam  no desenvolvimento de projetos é a sua estruturação, sua divisão por partes e o desenvolvimento de testes incrementais. Particularmente neste projeto que envolve a comunicação entre dois controladores, é muito difícil testar dois programas simultâneos, TX e RX, sendo que podem existir erros nos dois simultaneamente. A metodologia de desenvolvimento e testes do projeto deve ser escrita no relatório.
+</p>

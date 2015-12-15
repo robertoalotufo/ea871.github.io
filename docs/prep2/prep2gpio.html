@@ -9,11 +9,11 @@ Dois conceitos iniciais são importantes para se configurar qualquer módulo no 
 </p><p>
 Como o KL25 é um microcontrolador de baixa potência, normalmente os módulos não utilizados ficam totalmente desabilitados e para habilitá-los há necessidade de habilitar o seu clock:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idb0alm0w0hv/10_2_2_clockgating.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idb0alm0w0hv/10_2_2_clockgating.png">
 </p><p>
 Isto é feito pelo registrador SIM_SCGC5 (System Integration Module - System Clock Gating Control Register 5)  conforme descrição a seguir:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idb0bqo44kdq/SIM_SCGC5.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idb0bqo44kdq/SIM_SCGC5.png">
 </p><p>
 <span style="text-decoration:underline"><strong>Selecionando o controle do MUX do bit</strong></span>
 </p><p>
@@ -21,7 +21,7 @@ Uma vez que o módulo esteja com o clock habilitado, os bits desejados do módul
 </p><p>
 O registrador que configura cada bit da porta GPIO é o registrador Portx_PCRn (Port x - Pin Control Register n), onde x é uma das portas A, B, C, D ou E e n é um dos bits entre 0 e 31. A descrição destes registradores é dada a seguir:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idb0ogth3oqj/PortX_PCRn.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idb0ogth3oqj/PortX_PCRn.png">
 </p><p>
 Registradores GPIO
 </p><p>

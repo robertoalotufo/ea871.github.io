@@ -1,11 +1,16 @@
+<p>
 O controlador do display LCD que utilizamos é o <a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qvg9v2w42j/AC162A.pdf" target="_blank">AC162A.pdf</a>. É um display que permite mostrar até duas linhas de caracteres ASCII. O objetivo desta atividade é desenvolver o programa inicial que inicialize a interface e imprima alguns caracteres de teste.
-
+</p><p>
 Inicialmente, observe que a interface possui 8 sinais de dados (DB0 a DB7) e três sinais de controle: E, R/S e R/W. O sinal E deve ser pulsado quando um dado deve ser escrito no controlador LCD. O sinal R/S indica se o dado a ser escrito é um comando (R/S = 0) ou dado (R/S = 1) e o sinal R/W indica se o dado será escrito (R/W = 0) ou lido (R/w = 1). Vejamos como estes sinais estão ligados na placa Shield.
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo52qejagx/LCD_signals.png">
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo52qejagx/LCD_signals.png">
+</p><p>
 Observe no detalhe do esquemático da placa Shield que as portas PTC0-PTC7 do GPIO do KL25 estão ligadas ao Data Bus do LCD (DB0-DB7). O PTC9 está ligado no sinal E, o PTC8 está ligando no sinal R/S e o sinal R/W = 0, permitindo apenas escrever dados ou comando no LCD.
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo5v6xjo0a/LCD_schematic.png">
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo5v6xjo0a/LCD_schematic.png">
+</p><p>
 No diagrama de tempo a seguir é possível verificar como se deve fazer uma escrita de um dado ou comando no LCD.
-
+</p><p>
 <ol>
 <li> Deve-se selecionar R/S para 0 ou 1 caso queira enviar comando ou dado, respectivamente</li>
 <li> O sinal de R/W já está zero pelo aterramento deste sinal na placa, indicando que é escrita no LCD</li>
@@ -14,21 +19,24 @@ No diagrama de tempo a seguir é possível verificar como se deve fazer uma escr
 <li> Desliga-se o sinal E = 0</li>
 <li> Os sinais de dados podem ser alterados</li>
 </ol>
+</p><p>
 Observe algumas limitações. A largura do sinal E deve ser maior que 230 ns. O TDSW deve ser maior que 80 ns.
-
+</p><p>
 Assim é importante que o programa que escreve um caractere ou comando no LCD respeite esta temporização. Como já sabemos o tempo de duração das instruções do KL25, não é difícil verificar se seu programa irá satisfazer ou não estes requisitos de tempo.
+</p><p>
 
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo75s4k9sf/LCD_timing.png">
-
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo75s4k9sf/LCD_timing.png">
+</p><p>
 O controlador LCD é programável e o seu conjunto de instruções pode ser visto na tabela a seguir. Veja que tem comandos para configurar o modo de entrada dos dados, configurar o número de linhas do display, configurar se o cursor irá ou não aparecer ou piscar e comandos para limpar o display.
-
+</p><p>
 Após inicializar o display, o modo mais simples de enviar os dados é pelo Write Data do RAM. Cada dado escrito aqui no formato ASCII irá mostrar o caractere no Display.
-
+</p><p>
 ATENÇÃO: observe que na última coluna do conjunto de instruções do LCD traz o tempo em que o LCD estará ocupado e não poderá receber novos comandos ou dados. Veja por exemplo que após um comando de "Clear", a interface fica ocupada por 1.53 ms. Após um comando de envio de dado (WRITE Data to RAM), a interface fica ocupada por 43 microsegundos. Estes tempos devem ser observados. Utilize a subrotina feita na experiência passada, <tt>delay10us</tt>, que demore t x 10 microsegundos, assim fica fácil gerar estes tempos de espera.
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo7ujwqemm/LCD_intructionset.png">
-
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo7ujwqemm/LCD_intructionset.png">
+</p><p>
 Observe a sequência de inicialização do display LCD recomendada pelo fabricante.
+</p><p>
 <ol>
 <li> Deve-se inicialmente ligar o display e configurá-lo para uma ou duas linhas</li>
 <li> Esperar 39 microsegundos</li>
@@ -39,18 +47,21 @@ Observe a sequência de inicialização do display LCD recomendada pelo fabrican
 <li> Configurar o modo de entrada</li>
 <li> Esperar  39 microsegundos (ver tabela do jogo de instruções)</li>
 </ol>
+</p><p>
 Após esta sequência, o display está pronto para receber dados a serem mostrados no display.
-
+</p><p>
 Pode-se enviar agora alguns caracteres para o display. Por exemplo seu nome, ou qualquer outra frase.
+<br>
 A codificação ASCII de caracteres em C é feita pela aspas simples, por exemplo:
-
+</p><p>
 c = 'A'; // atribui o código ASCII do caractere A.
-
+</p><p>
 Assim, por exemplo, a expressão e atribuição
-
+</p><p>
 <pre>GPIOC_PDOR = (GPIOC_PDOR &amp; 0xffffff00) | 'A';
 </pre>
+</p><p>
 vai colocar o código ASCII do caracter A na porta do LCD.
+</p>
 
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo8hehrulo/LCD_initialization.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7qo8hehrulo/LCD_initialization.png">

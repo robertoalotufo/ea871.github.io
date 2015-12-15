@@ -1,5 +1,6 @@
+<p>
 Seja o trecho do loop em assembly, com primeira coluna sendo endereço, segunda coluna como sendo instrução de 16 bits e terceira coluna a instrução em ASM:
-
+</p>
 <pre>@ programa em assembly
 
 16        		GPIOE_PTOR = 0x00800000; // Toggle PTE23
@@ -10,10 +11,11 @@ Seja o trecho do loop em assembly, com primeira coluna sendo endereço, segunda 
 17        	}
 000009b0: e7fa  b main+0x8 (0x9a8)        ; 0x000009a8
 </pre>
-
+<p>
 Lembrando que o KL25Z é processador de 32 bits e instruções de 16 bits, cada leitura na memória sendo de 32 bits consegue ler 2 instruções simultaneamente.
+</p><p>
 A seguir é uma tabela dos acessos à memória durante a execução do trecho acima:
-
+</p>
 Tabela de execução para estimar ciclos do processador:
 
 <table height="335" border="1" cellpadding="6px" cellspacing="0" width="626"><tbody><tr><td>Ciclo</td><td>Endereço</td><td>Dados</td><td>Explicação</td></tr><tr><td>fetch de instruções</td><td>0x9a8</td><td>4b02.2280</td><td>fetch das instrucoes ldr r3, [pc,#8] e movs r2, #128</td></tr><tr><td>leitura</td><td>0x9b4</td><td>400f.f100</td><td>le conteudo (0x400f f100) de pc + 8 (0x9b4) e armazena em r3</td></tr><tr><td>execução na CPU</td><td>-</td><td>-</td><td>r2 &lt;- 0x80 (não acessa memória)</td></tr><tr><td>fetch de instruções e execução</td><td>0x9ac</td><td>0412.60da</td><td>fetch de lsls r2, #16 e str r2,[r3,#12];

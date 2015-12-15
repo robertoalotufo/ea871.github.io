@@ -23,9 +23,11 @@ toggle_pte23:
 <strong>Considerações:</strong>
 
 Lembrar que o principal gargalo de tempo de execução de uma instrução está associado ao número de acessos à memória. Uma instrução que não faz nenhum acesso adicional, como por exemplo, copiar o conteúdo de um registrador no outro vai requerer apenas o acesso para ler a instrução (fetch de instrução).
+<br>
 Considerando que o processador acessa a memória com 32 bits, se uma instrução estiver numa posição múltipla de 4, o acesso à memória irá ler duas instruções, a atual e a próxima. Isto permite economizar um acesso à memória. Uma leitura ou escrita na memória exige no mínimo 2 ciclos e pode demorar 3 ou 4 se houver <em>wait states</em>.
+<br>
 A temporização dos acessos à memória dos processadores ARM são bastante sofisticadas e complexas e não é assunto deste curso. Entretanto, o objetivo principal desta experiência é estimar o número de acessos à memória de cada instrução Thumb sendo executada.
-
+<br>
 <strong>Programa para próxima aula: (folder "prog4")</strong>
-
+<br>
 <ul><li>Reescrever o programa em C da primeira aula de piscar o LED, porém agora de forma que pisque na frequência de 1Hz juntamente com o sinal PTE23. Troque a função delay pela função: <tt>void delay10us(int t); </tt>que demore t dezenas de microssegundos. Calibrar o valor da constante usada nesta função usando o osciloscópio.</li><li>Utilize o template @623 onde a função <tt>delay10us</tt> está escrita com o decremento de<tt> t</tt> em ASM. Com isso será possível calibrar melhor o programa para que a subrotina gaste exatos <tt>10 us * t</tt>.</li><li>Coloque uma foto do visor do osciloscópio mostrando a frequência do sinal PTE23</li></ul>

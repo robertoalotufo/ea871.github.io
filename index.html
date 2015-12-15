@@ -17,15 +17,10 @@
   <link rel="stylesheet" href="static/highlight/styles/default.css">
   <script src="static/highlight/highlight.pack.js"></script>
   <script>
-  $(document).ready(function() {
-    $('pre').each(function(i, block) {
-      hljs.highlightBlock(block);
-    });
-  });
-  </script>
-  <script>
   $(function() {
-    $('#home').load("docs/home.html");
+    $("#home").load("docs/home.html",function(){
+      $.getScript("static/inithighlight.js");
+    });
     $('#ref01').load("docs/ref/calendar.html");
     $('#ref02').load("docs/ref/aval.html");
     $('#ref03').load("docs/ref/installcw.html");
@@ -165,7 +160,7 @@
               <a class = "list-group-item" data-toggle="pill" href="#view4">Roteiro 4</a>
               <a class = "list-group-item" data-toggle="pill" href="#view41">Acessos à memória</a>
               <a class = "list-group-item" data-toggle="pill" href="#view42">Visualização no osciloscópio</a>
-              <a class = "list-group-item" data-toggle="pill" href="#view43">Programa Misto ARM e C</a>
+              <a class = "list-group-item" data-toggle="pill" href="#view33">Programa Misto ARM e C</a>
             </ul>
           </div>
         </div>

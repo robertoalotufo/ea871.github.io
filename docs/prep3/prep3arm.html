@@ -1,71 +1,87 @@
-
+<p>
 <strong>Registradores básicos (Seção A2.3.1):</strong>
-
+</p><p>
 A CPU Cortex M0+ possui os seguintes registradores de 32 bits:
+</p>
 <ul><li>r0 a r12: 13 registradores de uso geral</li><li>SP - Stack Pointer (também denominado r13)</li><li>LR - Link Register (também denominado r14)</li><li>PC - Program Counter (também denominado r15)</li><li>SR - Status Register (ver seção A2.3.2)</li></ul>
-
+<p>
 <strong>O conjunto de instruções (Seção A4.1)</strong>
-
+</p><p>
 O conjunto de instruções do Cortex M0+ é o Thumb-2 que consiste tanto de instruções de 16 bits como algumas de 32 bits.
+</p><p>
 A maioria das instruções acessam apenas os registradores dito baixo (low) que são oito:  r0 a r7. Apenas um pequeno grupo de instruções acessam os registradores altos (high) r8 a r15.
-
+</p>
 <strong>Instruções de carregamento e armazenamento (Load e Store) (Seção A4.6)</strong>
-
+</p><p>
 As instruções Load/Store possui modo de endereçamento composto de 2 partes:
+</p>
 <ul><li>registrador de base: podendo ser registradores r0-r7, sp, pc</li><li>offset que pode ser de duas formas:
 <ul><li>imediato: constante que pode ser somada ou subtraída do registrador base</li><li>registrador: conteúdo pode ser somado ou subtraído do registrador base</li></ul>
 </li></ul>
-
+<p>
 Existem 3 tipos principais de endereçamento para load/store:
+</p>
 <ol><li>ldr/str <strong>imediato</strong> - formato: <tt>ldr Rt,[Rn,#imm]</tt>  ou <tt>str Rt,[Rn,#imm]</tt> <strong>(Seção A6.7.26)</strong></li><li>ldr/str <strong>literal</strong>, quando o reg de base é o PC: <tt>ldr Rt,[PC,#imm]</tt> ou <tt>str Rt,[PC#imm]</tt> <strong>(A6.7.27)</strong></li><li>ldr/str <strong>registrador</strong>, quando o offset é dado por um registrador: <tt>ldr Rt,[Rn,Rm] ou str Rt,[Rn,Rm]</tt> <strong>(A6.7.28)</strong></li></ol>
-
+<p>
 Atenção:
+</p>
 <ol><li>Quando o endereçamento é literal, o endereço base é o PC, sendo portanto um endereçamento relativo ao PC, como é uma instrução de carregamento ou salvamento de 32 bits, os endereços são sempre múltiplos de 4, assim, o offset possui 2 bits menos significativos 00 ocultos.</li><li>O valor do PC usando como referência para o cálculo do endereço relativo é sempre o endereço da próxima instrução múltiplo de 4. Assim se a instrução estiver no endereço 6, o PC de referência é 8. Se a instrução estiver no endereço 4, o PC de referência é 8.</li></ol>
-
+<p>
 <strong>Instruções lógicas e aritméticas</strong>
-
+</p><p>
 As instruções lógicas e aritméticas são feitas sempre entre registradores e nunca entre a memória e registradores. Esta é uma característica desta arquitetura ARM que é dita ser arquitetura load/store. Assim, se for necessário incrementar uma variável na memória, é preciso 1) carregar o valor da memória em um registrador; 2) incrementar o registrador; 3) salvar o novo valor do registrador na memória.
-
+</p><p>
 
 <strong>Codificação das instruções (Seção A6.7)</strong>
-
+</p><p>
 A seguir alguns exemplos para entender o funcionamento e a codificação de algumas instruções:
-
+</p><p>
 Vejamos a instrução
+</p>
 <pre>ldr r1, [r3]</pre>
+<p>
 É uma instrução denominada <strong>Load Register (immediate)</strong> (Veja descrição em <strong>A6.7.26</strong>)
-
+</p>
 Esta instrução calcula o endereço fornecido pelo registrador base &lt;Rn&gt; mais o offset de 5 bits &lt;imm5&gt;; carrega a palavra 32 bits deste endereço e coloca no registrador &lt;Rt&gt;.
+</p><p>
 Sua sintaxe é dada por:
-
+</p><p>
 <img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idl0ftwqbfwh/LDR_imm.png">
+</p>
 Onde:
 <ul><li>Rt é o registrador destino</li><li>Rn é o registrador de base</li><li>imm5 é o offset</li></ul>
+<p>
 Na instrução em questão, Rt é r1, Rn é R3 e o offset é zero.
-
+</p><p>
 0110100000011001 que é o hexadecimal 6819
-
+</p><p>
 Observe agora o código do disassembler:
+</p>
 <pre>	ldr r1, [r3]
    2:	6819      	ldr	r1, [r3, #0]</pre>
-<strong>na </strong>primeira linha é a instrução que está no programa fonte. O valor 2: é o endereço em que está a instrução, 6819 é o código hexadecimal da instrução de 16 bits codificada conforme a explicação acima e <tt>ldr r1,[r3,#0]</tt> é a instrução que o disassembler entende que é, com offset de valor zero.
 
+na primeira linha é a instrução que está no programa fonte. O valor 2: é o endereço em que está a instrução, 6819 é o código hexadecimal da instrução de 16 bits codificada conforme a explicação acima e <tt>ldr r1,[r3,#0]</tt> é a instrução que o disassembler entende que é, com offset de valor zero.
+<p>
 <strong>Vejamos agora um exemplo com Load Literal:</strong>
-
+</p>
 <pre>ldr r3, SIM_SCGC5
    0:	4b09      	ldr	r3, [pc, #36]	; (28 &lt;SIM_SCGC5&gt;)</pre>
+
 Note que na programação ASM, escrevemos ldr r3, SIM_SCGC5 dizendo que queremos carregar o conteúdo da memória SIM_SCGC5 em r3. A memória SIM_SCGC5 é inicializada com o valor 0x40048038 utilizando-se a pseudoinstrução do assembler denominada .word que inicializa a memória com uma constante 32 bits:
+
 <pre>00000028 &lt;SIM_SCGC5&gt;:
   28:	40048038 	.word	0x40048038</pre>
+
 Observe que a instrução ldr está no endereço 0 e a memória SIM_SCGC5 está no endereço 0x28 (note que estes valores estão em hexadecimal). Assim a instrução ldr r3,SIM_SCGC5 é na realidade uma instrução com endereçamento literal, relativo ao PC e sua forma canônica é ldr r3,[pc,#imm]:
 
 <img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/idn48dplrn5a/ldr_literal.png">
+<p>
 O cálculo do deslocamento imm8 é feito da seguinte forma: a instrução está no endereço 0, portanto o próximo endereço múltiplo de 4 é 4. A memória está no endereço 0x28. Assim a subtração 0x28 - 0x04 = 0x24 que em decimal é 36 que é o valor que aparece em [pc,#36]. Codificando-se o valor 0x24 em binário com 10 bits, pois são 8 bits do imm8 mais dois bits menos significativos que sempre são 00, pois o endereço deve ser múltiplo de 4: 0000.1001.00. Assim o valor de imm8 é 0x09. A codificação da instrução é portanto:
-
+</p><p>
 0100.1011.0000.1001 que é o valor 4b09
-
+</p><p>
 Vejamos agora um exemplo com branch relativo:
-
+</p>
 <pre>	bne loop
   24:	d1fc      	bne.n	20 &lt;loop&gt;</pre>
 onde loop está no endereço 0x20. Esta instrução é de desvio condicional, e deslocamento relativo. A codificação da instrução é dada por:
@@ -74,12 +90,11 @@ onde loop está no endereço 0x20. Esta instrução é de desvio condicional, e 
 A condição é not equal (ne) cujo código é 0001:
 
 <strong><img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/id2074suq5x6r0/idm4f28xn8gi/ne.png"></strong>
-
+<p>
 O cálculo do valor de deslocamento a ser colocado em imm8 é feito da seguinte forma: o valor de PC de referência é o endereço da próxima instrução múltiplo de 4. Como a instrução está no endereço 0x24, o PC portanto será 0x28. Se loop está no endereço 0x20, é necessário um deslocamento de - 0x8 (negativo), cujo valor em binário complemento de dois é 11111.1000. Este deslocamento sempre será par, pois será a subtração entre o PC, que é múltiplo de 4, de um endereço de uma instrução, que é par. Sendo o deslocamento par, não há necessidade de codificar o bit menos significativo que será sempre 0. Assim, imm8 fica sendo 1111.1100 (0xfc).
-
+</p><p>
 A instrução terá portanto codificação: 1101.0001.1111.1100 (d1fc)
-<strong></strong>
-<strong></strong>
+</p>
 <strong>Referências</strong>:
 
 <ul><li><strong><a href="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i7dpd4xb40ek/arm_v6m_reference_manual.pdf" target="_blank">arm_v6m_reference_manual.pdf</a> </strong>Descreve as instruções Thumb do Cortex M0+</li></ul>

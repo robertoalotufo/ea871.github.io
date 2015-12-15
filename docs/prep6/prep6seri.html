@@ -1,56 +1,72 @@
+<p>
 A comunicação serial assíncrona é uma das formas mais simples e antigas de comunicação entre computadores e periféricos. Ela é baseada no protocolo de transmissão start-stop.
-
+</p><p>
 <strong>Formato da comunicação serial</strong>
-
+</p><p>
 O formato mais usual é o utilizado pelo padrão RS-232 configurado para utilizar um start-bit, um stop-bit e 8 bits de dados sem paridade. Existe uma taxa de comunicação, denominada "baud-rate" medida em bits por segundo (bps). Neste experimento iremos utilizar a taxa de 19200 bps, que equivale a um período de 52,08 us por bit. O formato deste sinal no tempo pode ser visto nas figuras a seguir:
-
+</p><p>
 Transmissão de 2 bytes:
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i8atkog4vxtw/Serial_signal.png">
-
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i8atkog4vxtw/Serial_signal.png">
+</p><p>
 Transmissão de 1 byte:
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/ieblety8mp4g/uartsignal.png">
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/ieblety8mp4g/uartsignal.png">
+</p><p>
 O sinal fica em nível alto quando não existe nada sendo transmitido (idle). A transmissão inicia com um start bit no nível baixo e em seguida os bits dos dados são transmitidos, normalmente iniciando pelo bit menos significativo, de 0 a 7 e em seguida um stop bit de nível alto termina o pacote de transmissão. Se um novo byte é transmitido, uma nova sequência é feita. Note que como comunicação assíncrona, não existe transmissão do sinal de clock e o receptor é sincronizado com o transmissor pelo início do start bit. Observe que mesmo havendo uma pequena variação entre a taxa de transferência no transmissor (TX) e o receptor (RX), o sinal ainda pode ser corretamente recebido.
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/ieblhp3zuo2g/uartsignal_sample.png">
-
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/hzle6mt0zvk237/ieblhp3zuo2g/uartsignal_sample.png">
+</p><p>
 Um exercício interessante é calcular qual é o máximo de variação entre as taxas de transmissão do transmissor e receptor.
-
+</p><p>
 <strong>Parâmetros da comunicação serial assíncrona</strong>
-
+</p><p>
 Para se configurar corretamente uma porta serial assíncrona, é necessário definir minimamente os seguintes parâmetros:
-<ul><li>taxa de comunicação (baud rate) em bps - iremos utilizar 19.200 bps</li><li>duração do start bit - iremos utilizar 1 bit</li><li>número de bits de dados - iremos utilizar 8 bits</li><li>bit de paridade - não iremos utilizar bit de paridade</li><li>duração do start bit - iremos utilizar 1 bit</li><li></li></ul>
-Comunicação half ou full duplex. Quando existem dois canais distintos de comunicação, um para recepção e outro para transmissão, dizemos que a comunicação é full duplex, em contraste à comunicação half duplex, usual nos sistemas de comunicação tipo "walkie-talkie" onde a transmissão e recepção é compartilhada num mesmo canal.
-
+</p><p>
+<ul><li>taxa de comunicação (baud rate) em bps - iremos utilizar 19.200 bps</li><li>duração do start bit - iremos utilizar 1 bit</li><li>número de bits de dados - iremos utilizar 8 bits</li><li>bit de paridade - não iremos utilizar bit de paridade</li><li>duração do start bit - iremos utilizar 1 bit</li></ul>
+</p><p>
+<strong>Comunicação half ou full duplex</strong>
+</p><p>
+Quando existem dois canais distintos de comunicação, um para recepção e outro para transmissão, dizemos que a comunicação é full duplex, em contraste à comunicação half duplex, usual nos sistemas de comunicação tipo "walkie-talkie" onde a transmissão e recepção é compartilhada num mesmo canal.
+</p><p>
 <strong>Ligação entre a UART do KL25 e o Terminal Serial do CodeWarrior</strong>
-
+</p><p>
 A comunicação serial que iremos utilizar é pelo módulo UART da KL25, que está na placa Freedom e chega até o PC através da interface OpenSDA e cabo USB. No PC, o CodeWarrior emula uma porta COM de comunicação serial na USB e simula um terminal serial assíncrono, de modo que tudo que é teclado é enviado para a porta RX da UART da KL25 e todo caractere transmitido no TX da UART aparece na janela do terminal serial do CodeWarrior.
+</p><p>
 Veja a seguir como os sinais TX/RX da comunicação serial são canalizados pela interface OpenSDA e enviados ao PC pela porta USB:
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i8aurm7mcfkt/Serial_opensda.png">
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i8aurm7mcfkt/Serial_opensda.png">
+</p><p>
 Os sinais de recepção e transmissão da UART0 do KL25 estão ligados na OpenSDA através dos pinos PTA1 e PTA02 conforme descrito no manual da placa Freedom:
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i8azbs9xfoig/Serial_UART0_PTA1PTA0.png">
-
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i8azbs9xfoig/Serial_UART0_PTA1PTA0.png">
+</p><p>
 Veja no post @759 as instruções para configurar o terminal serial no CodeWarrior.
-
+</p><p>
 <strong>Forma de programação para receber e transmitir pela UART</strong>
-
+</p><p>
 Observe que existe um intervalo de tempo necessário para que um caractere seja transmitido. No nosso experimento em que iremos utilizar o baud-rate de 19200, cada caractere necessita de 10 períodos (8 bits de dados mais 1 start e 1 stop bits). Assim, a transmissão de um caractere de 8 bits deve demorar aproximadamente 520,8 microssegundos. Assim, para transmitir o segundo caractere, deve-se esperar este tempo para que o primeiro caractere seja transmitido. Diferentemente do que fizemos no caso do Display LCD em que o fabricante recomenda uma espera de tempo mínima, na UART, é possível utilizar um sinal que indica se o transmissor está pronto para transmitir. No KL25, este flag é denominado TDRE (Transmitter Data Register Empty) que fica 1 quando o transmissor estiver vazio e portanto pronto para se enviar um caractere. Assim, antes de se transmitir qualquer caractere para a UART é necessário verificar se o TDRE está verdadeiro. Assim o código típico de enviar caracteres para a UART é:
+</p><p>
 
 <tt>while( !(UART0_S1 &amp; UART0_S1_TDRE_MASK)) ; // se não está vazio (Register Empty), espera</tt>
+<br>
 <tt>UART0_D = c; // envia caracter a ser transmitido</tt>
+</p><p>
 
 Da mesma forma, o receptor RX da UART0 do KL25 está ligado ao teclado do PC associado à janela do Terminal serial do CodeWarrior. Entretanto, só faz sentido fazer uma leitura da UART0 se existir um caractere recebido. Assim, a flag do receptor da UART0 do KL25 é denominada RDRF (Receive Data Register Full Flag) que fica verdadeira quando existe um novo caractere a ser lido na UART. Este flag fica falso assim que o caractere é lido da UART0. Assim, o código típico de leitura de caractere do teclado (UART0) é:
+</p><p>
 
 <tt>if (UART0_S1 &amp; UART0_S1_RDRF_MASK) // verifica se existe um novo caractere na UART0 (Register Full)</tt>
+<br>
 <tt>    c = UART0_D; // lê o caractere</tt>
+<br>
 <tt>else</tt>
+<br>
 <tt>    // não existe caractere na UART</tt>
-
+</p><p>
 
 Este conceito de esperar para transmitir e testar a UART para receber é fundamental na comunicação serial e particularmente nas comunicações de E/S em geral. Este modelo de ficar esperando pelo evento acontecer é denominado em ingles de "pooling", isto é, você fica verificando quando o evento ocorre em um laço de espera. Iremos ver, futuramente como evitar este laço de espera utilizando interrupções.
-
+</p><p>
 <strong><tt>Referências:</tt></strong>
-
+</p>
 <ul><li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Asynchronous_serial_communication" target="_blank">Asynchronous_serial_communication</a></li><li>Wikipedia - <a href="http://en.wikipedia.org/wiki/RS-232" target="_blank">RS-232</a></li></ul>

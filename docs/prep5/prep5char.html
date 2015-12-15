@@ -1,26 +1,29 @@
-
-Galera vocês devem ter notado que no set de instruções do display LCD temos dois modos de endereçamento o Set DD RAM e o Set CG RAM.
+<p>
+Vocês devem ter notado que no set de instruções do display LCD temos dois modos de endereçamento o Set DD RAM e o Set CG RAM.
+</p><p>
 O DD RAM serve para definir qual a posição que vamos escrever os dados no LCD, mas e o CG RAM?
+</p><p>
 Este ultimo endereça uma região de memoria interna do LCD onde podemos editar e criar novos caracteres. No manual do LCD temos está região na tabela das fontes ilustrada abaixo.
+</p><p>
 
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieotwuytbrgh/Sem_título2.png">
-
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieotwuytbrgh/Sem_título2.png">
+</p><p>
 Como podemos ver a CG RAM está na primeira coluna dessa tabela e numerada de 1 – 8, essa numeração está repetida o que quer dizer que temos dois valores diferentes para enviar cada caractere da CG RAM para o display, o importante por enquanto e saber que temos 8 espaços para criação de caracteres.
-
+</p><p>
 Agora como endereçar esses oito espaços se a instrução Set CG RAM tem 6 bits o que quer dizer que essa instrução endereça 64 posições? Na verdade é bem simples eu usei as palavras ‘espaço’ e ‘posições’ porque são coisas diferentes dentro da CG RAM, um espaço corresponde ao caractere e cada posição a uma linha do caractere, como nosso LCD trabalha como uma grade de 5x8 temos oito linha para cada caractere da CG RAM como temos oito espaço com oito linha devemos endereçar 64 posiçõe.
-
+</p><p>
 E para terminar devemos mandar o dado relativo ao caractere que vamos criar linha por linha sendo que como temos apenas cinco colunas por caractere apenas os 5 bits menos significativos importam sendo que ‘1’ representa pixel ligado e ‘0’ desligado.
-
+</p><p>
 Ficou complicado de entender ainda? Bem vamos para um exemplo pratico, eu vou usar as funções que deveriam ser criadas no programa 5 e colocar aqui apenas a parte do ‘main’.
-
+</p><p>
 Dentro desse programa eu vou criar os caracteres ‘ç’ e ‘ã’ que não existem na grade base de caracteres do display, primeiro eu vou desenha cada caractere dentro da grade 5x8 para saber quais os dados devo enviar.
-
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieouhrj91u67/Sem_título3.png">
-
+</p><p>
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieouhrj91u67/Sem_título3.png">
+</p><p>
 Com os caracteres desenhados e os dados definidos falta escolher qual posição vamos escrever na CG RAM, só para complicar vou pegar duas posições não consecutivas, portanto teremos o ‘ç’ na posição 1 e ‘ã’ na posição 5.
+</p><p>
 Abaixo o programa:
-
+</p>
 <pre>int main(void)
 {
 	delay10us(3000);	//espera de 30 ms
@@ -72,4 +75,4 @@ Abaixo o programa:
 	return 0;
 }</pre>
 
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieotqimfr2jo/20150917_1924541.jpg" height="251" width="335">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/idc6ip1h7fu5ow/ieotqimfr2jo/20150917_1924541.jpg" height="251" width="335">

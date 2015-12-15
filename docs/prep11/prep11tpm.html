@@ -4,7 +4,7 @@ Esta explicação acompanha o Roteiro 11: @1622
 O módulo temporador e módulo PWM é uma interface bastante versátil que permite tanto a geração de ondas quadradas como a medida de tempo entre eventos.
 </p><p>
 O diagrama de blocos do módulo TPM é mostrado a seguir:
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i9yszf2xtxyx/TPMdiagram.png">O módulo possui 3 funcionalidades:
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i9yszf2xtxyx/TPMdiagram.png">O módulo possui 3 funcionalidades:
 <ul><li>Output compare - geração de onda quadrada</li><li>Input compare - medida de tempo entre eventos</li><li>PWM - geração de pulsos</li></ul>
 </p><p>
 Neste experimento, iremos utilizar a geração de pulsos PWM para acionamento de um motor.
@@ -14,7 +14,7 @@ O coração do módulo TPM é o contador de 16 bits (Module counter) que pode se
 Este contador, juntamente com o prescaler, MOD e escolha do clock definem a temporização do TPM. Cada TPM possui vários canais e cada canal tem um pino associado de saída (modo output compare ou PWM).
 Para a geração do pulso PWM, existe um comparador CnV. Iremos trabalhar com a geração de sinais PWM com alinhamento central, conforme a figura a seguir:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i9yxb1g2qy4b/DiagramaTempoPWM.jpg">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/i406dyu4aw75jl/hzle6mt0zvk237/i9yxb1g2qy4b/DiagramaTempoPWM.jpg">
 </p><p>
 O contador funciona no modo incremento e decremento. O período é dado pelo valor MOD que é quando o contador começa a decrementar. A largura do pulso do pino do canal i será proporcional ao valor CiV programado. Variando-se este valor, varia-se a largura do pulso PWM.
 </p>

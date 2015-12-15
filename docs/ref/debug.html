@@ -9,57 +9,57 @@ Para que possamos estabelecer e depurar o código utilizando o CodeWarrior é po
 </p><p>
 <strong>1.</strong> Selecionar a linha de código para criar um breakpoint e clicar com o botão direito na barra lateral esquerda:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbshu104v30/1.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbshu104v30/1.png">
 </p><p>
 <strong>2.</strong> Clicar em Add Breakpoint:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsiavndvvx/2.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsiavndvvx/2.png">
 </p><p>
 <strong>3.</strong> Clicar em OK:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsitlwcihx/3.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsitlwcihx/3.png">
 </p><p>
 <strong>4.</strong> Agora com o breakpoint definido podemos executar o código, porém devemos realizar essa tarefa em modo de depuração, clicando no ícone do "bug":
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsj6smnepg/4.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsj6smnepg/4.png">
 </p><p>
 <strong>5.</strong> Feito isso, o CodeWarrior troca de interface e apresenta os recursos do ambiente de depuração:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsjk20vj4f/5.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsjk20vj4f/5.png">
 </p><p>
 <strong>6.</strong> O programa, nesse ambiente, não começa em execução, e para que ele execute até parar no primeiro breakpoint definido devemos clicar no botão:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsk3csjq1r/6.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsk3csjq1r/6.png">
 </p><p>
 <strong>7</strong>. Agora o CodeWarrior executou nosso código até encontrar o primeiro breakpoint e deixou a linha em destaque:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc13b02yz8o/7.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc13b02yz8o/7.png">
 </p><p>
 <strong>8.</strong> Nesse momento é possível avaliar valores de variáveis e outros atributos relacionados a execução do código na seguinte seção do ambiente do CodeWarrior. No caso do programa que acende os 8 LEDs vermelhos, podemos observar o valor do registrador conforme a execução (O conteúdo do registrador é armazenado na variável <strong>s</strong>). Para alterar a visualização para binário, basta clicar com o botão direito sobre a variável e alterar o "Format" para "Binary":
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbut5jj3ndd/8leds_binary.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbut5jj3ndd/8leds_binary.png">
 </p><p>
 <strong>9.</strong> Além de monitorar as variáveis, também é possível monitorar uma posição de memória, já que é onde escrevemos quando vamos alterar o valor de um registrador para apagar ou acender LEDs. Para isso, acesse a aba "Memory" e clique no ícone +:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc140kd89a0/9.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc140kd89a0/9.png">
 </p><p>
 <strong>10. </strong>Agora, devemos inserir o endereço de memória a ser monitorado. Nesse caso, vamos monitorar o GPIOC_PDOR para verificar os bits da Porta C durante o loop. Esse registrador tem como endereço 0x400FF080:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc14c049nod/10.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc14c049nod/10.png">
 </p><p>
 <strong>11.</strong> A aba "Memory" passa a exibir os valores armazenados na memória:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc14oef4mjd/11.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc14oef4mjd/11.png">
 </p><p>
 <strong>12. </strong>Conforme o código é executado, o conteúdo do endereço de memória se altera e é indicado pelo monitor de memória criado:
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc14zazw3o7/12.png">
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc159g5derh/13.png">
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc15huy4c1e/14.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc14zazw3o7/12.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc159g5derh/13.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idc15huy4c1e/14.png">
 </p><p>
 <strong>13.</strong> Então, é possível decidir se a execução deve continuar normalmente até o próximo breakpoint (ou final do código), ou de algum outro modo, como a execução passo a passo, utilizando os botões.
 </p><p>
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsmyghmeg2/9.png">
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsltysryb6/91.png">
-<img src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsm3f1l9v/92.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsmyghmeg2/9.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsltysryb6/91.png">
+<img class="img-responsive" src="https://d1b10bmlvqabco.cloudfront.net/attach/ico4hugq6lv1f1/i6nlc6r4bk44wa/idbsm3f1l9v/92.png">
 </p>

@@ -1,11 +1,13 @@
 Pesquisando no manual da série KL25Z é possível verificar a possibilidade de configurar o pino PTC3 ao sinal CLKOUT utilizando a opção de Alternative 5 para o MUX deste pino(tabela da seção 10.3.1 do manual do KL25Z). Para isso, deve-se ir ao registrador PORTC_PCR3 e configurar o campo de MUX com a constante "101", selecionando assim a opção Alternative 5 para o pino, e portanto, realizando a ligação entre o pino PTC3 e o sinal CLKOUT.
+</p><p>
 O sinal CLKOUT pode ser configurado como saída de algum clock, que vamos selecionar mais adiante, para visualizarmos no osciloscópio.
+</p><p>
 O pino PTC3 tem ligação a um dos pinos da placa SHIELD, tornando possível a medição do sinal CLKOUT.
-<br>
+</p><p>
 Para selecionar o sinal de clock que deve ser direcionado para o pino PTC3, devemos configurar o registrador SIM_SOPT2, que é um registrador que guarda algumas configurações de clock do sistema. (Verificar seção 12.2.3 do manual do KL25Z) Observando a especificação do manual é possível notar que o campo "CLKOUTSEL" deve ser preenchido com "010", para que "Bus Clock" seja selecionado.
-<br>
+</p><p>
 É interessante também colocar o pino PTE23 como saída e realizar a operação de toggle repetidamente, criando uma onda quadrada artificialmente. A escolha desse pino se deve ao fato dele estar presente na porta serial da placa SHIELD e por isso a medição se torna mais fácil. (Verificar manual da placa SHIELD e a localização do pino)
-<br>
+</p>
 É possível utilizar o seguinte código para configurar o sinal do "Bus Clock" como saída do pino PTC3 e gerar uma onda quadrada no pino PTE23.
 <br>
 <pre>/* This assembly file uses GNU syntax */
