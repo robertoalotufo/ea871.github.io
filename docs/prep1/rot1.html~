@@ -30,7 +30,7 @@ Durante a aula crie um projeto com o primeiro programa que faz LED vermelho pisc
 <li>Siga as instruções para criar um projeto: @19</li>
 </ul>
 <ul>
-<li>Utilize como main.c o programa para piscar LED vermelho: <a href="docs/prep1/prep1code.html">Programa LED RGB</a> </li>
+<li>Utilize como main.c o programa para piscar LED vermelho: <a href="#view11">Programa LED RGB</a> </li>
 </ul>
 
 <strong>Programa a ser feito e entregue no folder prog1 antes da próxima aula: </strong>
